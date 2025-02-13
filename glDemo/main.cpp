@@ -6,7 +6,6 @@
 #include "PrincipleAxes.h"
 #include "AIMesh.h"
 #include "Cube.h"
-#include "2DExamples.h"
 
 
 using namespace std;
@@ -17,14 +16,13 @@ using namespace glm;
 
 GUClock* gameClock = nullptr;
 
-// Main camera
-ArcballCamera* mainCamera = nullptr;
-
 // Mouse tracking
 bool				mouseDown = false;
 double				prevMouseX, prevMouseY;
 
-// Scene objects
+// Glocal Scene objects
+// shouldn't really be anything in here for the final submission
+ArcballCamera* mainCamera = nullptr;
 CGPrincipleAxes* principleAxes = nullptr;
 Cube* cube = nullptr;
 AIMesh* creatureMesh = nullptr;
@@ -161,28 +159,6 @@ int main() {
 }
 
 
-// Demo code for studio - used to show 2D content and expand view into 3D
-
-bool showViewplaneQuad = false;
-bool showStar = true; // if false render triangle
-bool showPrincipleAxes = false;
-bool showZAxis = false;
-
-void demo_render2DStuff(mat4 cameraTransform) {
-
-	glLoadMatrixf((GLfloat*)&cameraTransform);
-
-	if (showStar)
-		render2D_star();
-	else
-		render2D_triangle();
-	
-	if (showViewplaneQuad) {
-
-		render2D_quadOutline();
-	}
-}
-
 // renderScene - function to render the current scene
 void renderScene()
 {
@@ -278,22 +254,6 @@ void keyboardHandler(GLFWwindow* window, int key, int scancode, int action, int 
 		{
 			case GLFW_KEY_ESCAPE:
 				glfwSetWindowShouldClose(window, true);
-				break;
-			
-			case GLFW_KEY_S:
-				showStar = !showStar;
-				break;
-
-			case GLFW_KEY_V:
-				showViewplaneQuad = !showViewplaneQuad;
-				break;
-
-			case GLFW_KEY_A:
-				showPrincipleAxes = !showPrincipleAxes;
-				break;
-
-			case GLFW_KEY_Z:
-				showZAxis = !showZAxis;
 				break;
 
 			default:

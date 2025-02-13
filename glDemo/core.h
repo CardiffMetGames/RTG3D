@@ -21,6 +21,9 @@
 #include <random>
 #include <vector>
 #include <string>
+#include <set>
+#include <map>
+#include <fstream>
 #include <glm\vec2.hpp>
 #include <glm\vec3.hpp>
 #include <glm\vec4.hpp>

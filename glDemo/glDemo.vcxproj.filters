@@ -1,117 +1,176 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Source Files">
-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
-    </Filter>
-    <Filter Include="Header Files">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
-    </Filter>
     <Filter Include="Resource Files">
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Example Headers">
+      <UniqueIdentifier>{ed87ec65-dd0d-44ee-a37b-9d269aa184cb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Example Source Files">
+      <UniqueIdentifier>{e5e40d43-68d8-4de7-8cb8-4de28797190a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game Header Files">
+      <UniqueIdentifier>{e0efeabd-2890-473e-beb4-d01a8fd6cc31}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game Source Files">
+      <UniqueIdentifier>{935930dd-f970-454b-8c32-e0fb8f9af4eb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Base Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="Base Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Shaders">
+      <UniqueIdentifier>{29b5baed-3895-47a2-a78d-aaf45a6989c8}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GL\glew.h">
-      <Filter>Header Files</Filter>
+      <Filter>Base Header Files</Filter>
     </ClInclude>
     <ClInclude Include="GLFW\glfw3.h">
-      <Filter>Header Files</Filter>
+      <Filter>Base Header Files</Filter>
     </ClInclude>
     <ClInclude Include="GLFW\glfw3native.h">
-      <Filter>Header Files</Filter>
+      <Filter>Base Header Files</Filter>
     </ClInclude>
     <ClInclude Include="core.h">
-      <Filter>Header Files</Filter>
+      <Filter>Base Header Files</Filter>
     </ClInclude>
     <ClInclude Include="FreeImage\FreeImage.h">
-      <Filter>Header Files</Filter>
+      <Filter>Base Header Files</Filter>
     </ClInclude>
     <ClInclude Include="FreeImage\FreeImagePlus.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="star-vbo.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="RandomStars.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="PlanetSystem.h">
-      <Filter>Header Files</Filter>
+      <Filter>Base Header Files</Filter>
     </ClInclude>
     <ClInclude Include="TextureLoader.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="TileMap.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="TextureQuad.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="PrincipleAxes.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="ArcballCamera.h">
-      <Filter>Header Files</Filter>
+      <Filter>Base Header Files</Filter>
     </ClInclude>
     <ClInclude Include="AIMesh.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Cube.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="2DExamples.h">
-      <Filter>Header Files</Filter>
+      <Filter>Base Header Files</Filter>
     </ClInclude>
     <ClInclude Include="GUClock.h">
-      <Filter>Header Files</Filter>
+      <Filter>Base Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ArcballCamera.h">
+      <Filter>Example Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Cube.h">
+      <Filter>Example Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="PrincipleAxes.h">
+      <Filter>Example Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="RandomStars.h">
+      <Filter>Example Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="star-vbo.h">
+      <Filter>Example Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="TextureQuad.h">
+      <Filter>Example Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="shader_setup.h">
+      <Filter>Base Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CameraFactory.h">
+      <Filter>Game Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="cCamera.h">
+      <Filter>Game Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="cLight.h">
+      <Filter>Game Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Game.h">
+      <Filter>Game Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObject.h">
+      <Filter>Game Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObjectFactory.h">
+      <Filter>Game Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="LightFactory.h">
+      <Filter>Game Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="helper.h">
+      <Filter>Game Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="cTransform.h">
+      <Filter>Game Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Base Source Files</Filter>
     </ClCompile>
     <ClCompile Include="core.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="star-vbo.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="RandomStars.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="PlanetSystem.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Base Source Files</Filter>
     </ClCompile>
     <ClCompile Include="TextureLoader.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="TileMap.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="TextureQuad.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="PrincipleAxes.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="ArcballCamera.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Base Source Files</Filter>
     </ClCompile>
     <ClCompile Include="AIMesh.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Cube.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="2DExamples.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Base Source Files</Filter>
     </ClCompile>
     <ClCompile Include="GUClock.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Base Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="ArcballCamera.cpp">
+      <Filter>Example Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Cube.cpp">
+      <Filter>Example Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="PrincipleAxes.cpp">
+      <Filter>Example Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="RandomStars.cpp">
+      <Filter>Example Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="star-vbo.cpp">
+      <Filter>Example Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="TextureQuad.cpp">
+      <Filter>Example Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="shader_setup.cpp">
+      <Filter>Base Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CameraFactory.cpp">
+      <Filter>Game Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="cCamera.cpp">
+      <Filter>Game Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="cLight.cpp">
+      <Filter>Game Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Game.cpp">
+      <Filter>Game Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObject.cpp">
+      <Filter>Game Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObjectFactory.cpp">
+      <Filter>Game Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="LightFactory.cpp">
+      <Filter>Game Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="cTransform.cpp">
+      <Filter>Game Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="manifest.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
   </ItemGroup>
 </Project>

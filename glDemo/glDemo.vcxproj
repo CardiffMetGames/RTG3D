@@ -136,40 +136,56 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="2DExamples.h" />
     <ClInclude Include="AIMesh.h" />
     <ClInclude Include="ArcballCamera.h" />
+    <ClInclude Include="CameraFactory.h" />
+    <ClInclude Include="cCamera.h" />
+    <ClInclude Include="cLight.h" />
     <ClInclude Include="core.h" />
+    <ClInclude Include="cTransform.h" />
     <ClInclude Include="Cube.h" />
     <ClInclude Include="FreeImage\FreeImage.h" />
     <ClInclude Include="FreeImage\FreeImagePlus.h" />
+    <ClInclude Include="Game.h" />
+    <ClInclude Include="GameObject.h" />
+    <ClInclude Include="GameObjectFactory.h" />
     <ClInclude Include="GLFW\glfw3.h" />
     <ClInclude Include="GLFW\glfw3native.h" />
     <ClInclude Include="GL\glew.h" />
     <ClInclude Include="GUClock.h" />
-    <ClInclude Include="PlanetSystem.h" />
+    <ClInclude Include="helper.h" />
+    <ClInclude Include="LightFactory.h" />
     <ClInclude Include="PrincipleAxes.h" />
     <ClInclude Include="RandomStars.h" />
+    <ClInclude Include="shader_setup.h" />
     <ClInclude Include="star-vbo.h" />
     <ClInclude Include="TextureLoader.h" />
     <ClInclude Include="TextureQuad.h" />
-    <ClInclude Include="TileMap.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="2DExamples.cpp" />
     <ClCompile Include="AIMesh.cpp" />
     <ClCompile Include="ArcballCamera.cpp" />
+    <ClCompile Include="CameraFactory.cpp" />
+    <ClCompile Include="cCamera.cpp" />
+    <ClCompile Include="cLight.cpp" />
     <ClCompile Include="core.cpp" />
+    <ClCompile Include="cTransform.cpp" />
     <ClCompile Include="Cube.cpp" />
+    <ClCompile Include="Game.cpp" />
+    <ClCompile Include="GameObject.cpp" />
+    <ClCompile Include="GameObjectFactory.cpp" />
     <ClCompile Include="GUClock.cpp" />
+    <ClCompile Include="LightFactory.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="PlanetSystem.cpp" />
     <ClCompile Include="PrincipleAxes.cpp" />
     <ClCompile Include="RandomStars.cpp" />
+    <ClCompile Include="shader_setup.cpp" />
     <ClCompile Include="star-vbo.cpp" />
     <ClCompile Include="TextureLoader.cpp" />
     <ClCompile Include="TextureQuad.cpp" />
-    <ClCompile Include="TileMap.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="manifest.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
