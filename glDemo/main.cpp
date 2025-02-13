@@ -28,13 +28,18 @@ double				prevMouseX, prevMouseY;
 ArcballCamera* mainCamera = nullptr;
 CGPrincipleAxes* principleAxes = nullptr;
 Cube* cube = nullptr;
+
+GLuint flatColourShader;
+
 GLuint texDirLightShader; 
 vec3 DLdirection = vec3(0.0f, 1.0f, 0.0f);
 vec3 DLcolour = vec3(1.0f, 1.0f, 1.0f);
+
 AIMesh* creatureMesh = nullptr;
 vec3 beastPos = vec3(2.0f, 0.0f, 0.0f);
 float beastRotation = 0.0f;
 AIMesh* planetMesh = nullptr;
+
 int g_showing = 0;
 int g_NumExamples = 3;
 
@@ -126,6 +131,7 @@ int main() {
 	//
 
 	texDirLightShader = setupShaders(string("Assets\\Shaders\\texture-directional.vert"), string("Assets\\Shaders\\texture-directional.frag"));
+	flatColourShader = setupShaders(string("Assets\\Shaders\\flatColour.vert"), string("Assets\\Shaders\\flatColour.frag"));
 
 	mainCamera = new ArcballCamera(0.0f, 0.0f, 1.98595f, 55.0f, 1.0f, 0.1f, 500.0f);
 	
@@ -245,9 +251,18 @@ void renderScene()
 
 	case 1:
 	{
-		// Render cube - no modelling transform so leave cameraTransform set in OpenGL and render
-		//glLoadMatrixf((GLfloat*)&cameraTransform);
-		//cube->render();
+		// Render cube 
+		glUseProgram(flatColourShader);
+		GLint pLocation;
+		Helper::SetUniformLocation(flatColourShader, "viewMatrix", &pLocation);
+		glUniformMatrix4fv(pLocation, 1, GL_FALSE, (GLfloat*)&cameraView);
+		Helper::SetUniformLocation(flatColourShader, "projMatrix", &pLocation);
+		glUniformMatrix4fv(pLocation, 1, GL_FALSE, (GLfloat*)&cameraProjection);
+		Helper::SetUniformLocation(flatColourShader, "modelMatrix", &pLocation);
+		mat4 modelTransform = identity<mat4>();
+		glUniformMatrix4fv(pLocation, 1, GL_FALSE, (GLfloat*)&modelTransform);
+
+		cube->render();
 		break;
 	}
 	case 2:
