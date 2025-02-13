@@ -80,31 +80,41 @@ FILE: Assets\\gsphere.obj
 
 TEXTURES 5
 {
-TYPE: 
-NAME:
-FILE:
+TYPE: FIF_BMP
+NAME: BEAST
+FILE: Assets\\beast\\beast_texture.bmp
 }
 {
-TYPE: 
-NAME:
-FILE:
+TYPE: FIF_JPEG
+NAME: ROCK
+FILE: Assets\\Textures\\Hodges_G_MountainRock1.jpg
 }
 {
-TYPE: 
-NAME:
-FILE:
+TYPE: FIF_PNG
+NAME: SHIP
+FILE: Assets\\Textures\\player1_ship.png
 }
 {
-TYPE: 
-NAME:
-FILE:
+TYPE: FIF_JPEG
+NAME: STARS
+FILE: Assets\\Textures\\stars.jpg
 }
 {
-TYPE: 
-NAME:
-FILE:
+TYPE: FIF_JPEG
+NAME: STARS2
+FILE: Assets\\Textures\\stars2.jpg
 }
 
 SHADERS 2
+{
+NAME: FLAT
+VERTFILE: Assets\\Shaders\\flatColour.vert
+FRAGFILE: Assets\\Shaders\\flatColour.frag
+}
+{
+NAME: TEXDIR
+VERTFILE: Assets\\Shaders\\texture-directional.vert
+FRAGFILE: Assets\\Shaders\\texture-directional.frag
+}
 
 GAMEOBJECTS 3

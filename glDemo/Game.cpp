@@ -6,6 +6,8 @@
 #include "cLight.h"
 #include "ModelFactory.h"
 #include "model.h"
+#include "Texture.h"
+#include "Shader.h"
 #include "GameObjectFactory.h"
 #include <assert.h>
 
@@ -70,6 +72,8 @@ void Game::Load(ifstream& _file)
 		cCamera* newCam = CameraFactory::makeNewCam(type);
 		newCam->Load(_file);
 
+		m_Cameras.push_back(newCam);
+
 		//skip }
 		_file.ignore(256, '\n');
 	}
@@ -89,15 +93,17 @@ void Game::Load(ifstream& _file)
 		cLight* newLight = LightFactory::makeNewLight(type);
 		newLight->Load(_file);
 
+		m_Lights.push_back(newLight);
+
 		//skip }
 		_file.ignore(256, '\n');
 	}
 
 	cout << endl << endl;
 
-	//load Modles
+	//load Models
 	_file >> dummy >> m_numModels; _file.ignore(256, '\n');
-	cout << "LIGHTS : " << m_numModels << endl;
+	cout << "MODELS : " << m_numModels << endl;
 	for (int i = 0; i < m_numModels; i++)
 	{
 		//skip {
@@ -107,6 +113,40 @@ void Game::Load(ifstream& _file)
 		_file >> dummy >> type; _file.ignore(256, '\n');
 		Model* newModel = ModelFactory::makeNewModel(type);
 		newModel->Load(_file);
+
+		m_Models.push_back(newModel);
+
+		//skip }
+		_file.ignore(256, '\n');
+	}
+
+	cout << endl << endl;
+
+	//load Textures
+	_file >> dummy >> m_numTextures; _file.ignore(256, '\n');
+	cout << "TEXTURES : " << m_numTextures << endl;
+	for (int i = 0; i < m_numTextures; i++)
+	{
+		//skip {
+		_file.ignore(256, '\n');
+
+		m_Textures.push_back(new Texture(_file) );
+
+		//skip }
+		_file.ignore(256, '\n');
+	}
+
+	cout << endl << endl;
+
+	//load Shaders
+	_file >> dummy >> m_numShaders; _file.ignore(256, '\n');
+	cout << "SHADERS : " << m_numShaders << endl;
+	for (int i = 0; i < m_numShaders; i++)
+	{
+		//skip {
+		_file.ignore(256, '\n');
+
+		m_Shaders.push_back(new Shader(_file));
 
 		//skip }
 		_file.ignore(256, '\n');

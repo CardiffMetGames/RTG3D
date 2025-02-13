@@ -111,6 +111,12 @@
     <ClInclude Include="AIModel.h">
       <Filter>Game Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Texture.h">
+      <Filter>Game Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Shader.h">
+      <Filter>Game Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -174,6 +180,12 @@
       <Filter>Game Source Files</Filter>
     </ClCompile>
     <ClCompile Include="AIModel.cpp">
+      <Filter>Game Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Texture.cpp">
+      <Filter>Game Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Shader.cpp">
       <Filter>Game Source Files</Filter>
     </ClCompile>
   </ItemGroup>

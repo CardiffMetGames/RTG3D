@@ -12,6 +12,8 @@ struct GLFWwindow;
 class cCamera;
 class cLight;
 class Model;
+class Texture;
+class Shader;
 
 class Game
 {
@@ -40,9 +42,13 @@ protected:
 	int m_numLights;
 	int m_numGameObjects;
 	int m_numModels;
+	int m_numTextures;
+	int m_numShaders;
 	std::list<cCamera*>    m_Cameras;
 	std::list<cLight*>    m_Lights;
 	std::list<Model*>		m_Models;
+	std::list<Texture*>		m_Textures;
+	std::list<Shader*>		m_Shaders;
 	std::list<GameObject*> m_GameObjects;
 
 };
