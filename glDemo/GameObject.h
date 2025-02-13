@@ -5,7 +5,6 @@
 using namespace std;
 class cMesh;
 class cTransform;
-struct GLFWwindow;
 
 //Base class of a GameObject
 class GameObject
@@ -18,7 +17,10 @@ public:
 	virtual void Load(FILE* fp);
 
 	//update _window allows for Keyboard access
-	virtual void Tick(GLFWwindow* _window);
+	virtual void Tick(float _dt);
+
+	//render this object
+	virtual void Render();
 
 	//various getters and setters
 	void SetMesh(cMesh* _mesh) { m_mesh = _mesh; }

@@ -66,12 +66,6 @@
     <ClInclude Include="PrincipleAxes.h">
       <Filter>Example Headers</Filter>
     </ClInclude>
-    <ClInclude Include="RandomStars.h">
-      <Filter>Example Headers</Filter>
-    </ClInclude>
-    <ClInclude Include="star-vbo.h">
-      <Filter>Example Headers</Filter>
-    </ClInclude>
     <ClInclude Include="TextureQuad.h">
       <Filter>Example Headers</Filter>
     </ClInclude>
@@ -131,12 +125,6 @@
     <ClCompile Include="PrincipleAxes.cpp">
       <Filter>Example Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="RandomStars.cpp">
-      <Filter>Example Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="star-vbo.cpp">
-      <Filter>Example Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="TextureQuad.cpp">
       <Filter>Example Source Files</Filter>
     </ClCompile>
@@ -172,5 +160,13 @@
     <Text Include="manifest.txt">
       <Filter>Resource Files</Filter>
     </Text>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Assets\Shaders\texture-directional.frag">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="Assets\Shaders\texture-directional.vert">
+      <Filter>Shaders</Filter>
+    </None>
   </ItemGroup>
 </Project>

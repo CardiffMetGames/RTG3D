@@ -15,7 +15,7 @@ public:
 	Game();
 	//tick all GOs
 	//_window allows for keyboard access
-	void Update(GLFWwindow* _window);
+	void Update(float _dt);
 
 	//add this GO to my list
 	void AddGameObject(GameObject* _new);
@@ -23,8 +23,8 @@ public:
 	//return a pointer to a given GO by its name
 	GameObject* GetGameObject(string _GOName);
 
-	//Don't like this being here but it allows multi-use of meshes
-	void RenderMeshes(class cCamera* _cam, cScene* _scene);
+	//Render Everything
+	void Render();
 
 protected:
 

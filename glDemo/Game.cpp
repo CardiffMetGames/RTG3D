@@ -9,11 +9,11 @@ Game::Game()
 
 //tick all my Game Objects
 //the window is being passed in to allow things liek keyboard control of your player character
-void Game::Update(GLFWwindow* _window)
+void Game::Update(float _dt)
 {
 	for (list<GameObject*>::iterator it = m_GameObjects.begin(); it != m_GameObjects.end(); it++)
 	{
-		(*it)->Tick(_window);
+		(*it)->Tick(_dt);
 	}
 }
 
@@ -38,10 +38,11 @@ GameObject* Game::GetGameObject(string _GOName)
 }
 
 
-//don't like this being here but..
-void Game::RenderMeshes(class cCamera* _cam, cScene* _scene)
+//Render Everything
+void Game::Render()
 {
 	for (list<GameObject*>::iterator it = m_GameObjects.begin(); it != m_GameObjects.end(); it++)
 	{
+		(*it)->Render();
 	}
 }

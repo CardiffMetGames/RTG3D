@@ -24,7 +24,11 @@ void GameObject::Load(FILE* _fp)
 	m_transform->print();
 }
 
-void GameObject::Tick(GLFWwindow* _window)
+void GameObject::Tick(float _dt)
 {
 	m_transform->Update();
+}
+
+void GameObject::Render()
+{
 }

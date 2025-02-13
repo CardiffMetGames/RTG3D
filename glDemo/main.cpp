@@ -4,8 +4,11 @@
 #include "ArcballCamera.h"
 #include "GUClock.h"
 #include "PrincipleAxes.h"
+#include "shader_setup.h"
+#include "helper.h"
 #include "AIMesh.h"
 #include "Cube.h"
+#include "Game.h"
 
 
 using namespace std;
@@ -20,13 +23,23 @@ GUClock* gameClock = nullptr;
 bool				mouseDown = false;
 double				prevMouseX, prevMouseY;
 
-// Glocal Scene objects
+// Global Example objects
 // shouldn't really be anything in here for the final submission
 ArcballCamera* mainCamera = nullptr;
 CGPrincipleAxes* principleAxes = nullptr;
 Cube* cube = nullptr;
+GLuint texDirLightShader; 
+vec3 DLdirection = vec3(0.0f, 1.0f, 0.0f);
+vec3 DLcolour = vec3(1.0f, 1.0f, 1.0f);
 AIMesh* creatureMesh = nullptr;
+vec3 beastPos = vec3(2.0f, 0.0f, 0.0f);
+float beastRotation = 0.0f;
 AIMesh* planetMesh = nullptr;
+int g_showing = 0;
+int g_NumExamples = 3;
+
+//Global Game Object
+Game* g_Game = nullptr;
 
 // Window size
 const unsigned int initWidth = 512;
@@ -65,7 +78,7 @@ int main() {
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 1);
 
-	GLFWwindow* window = glfwCreateWindow(initWidth, initHeight, "CIS5013", NULL, NULL);
+	GLFWwindow* window = glfwCreateWindow(initWidth, initHeight, "GDV5001", NULL, NULL);
 
 	// Check window was created successfully
 	if (window == NULL)
@@ -109,8 +122,11 @@ int main() {
 	glDepthFunc(GL_LEQUAL);
 
 	//
-	// Setup Textures, VBOs and other scene objects
+	// Setup the Example Objects
 	//
+
+	texDirLightShader = setupShaders(string("Assets\\Shaders\\texture-directional.vert"), string("Assets\\Shaders\\texture-directional.frag"));
+
 	mainCamera = new ArcballCamera(0.0f, 0.0f, 1.98595f, 55.0f, 1.0f, 0.1f, 500.0f);
 	
 	principleAxes = new CGPrincipleAxes();
@@ -128,9 +144,16 @@ int main() {
 		planetMesh->addTexture(string("Assets\\Textures\\Hodges_G_MountainRock1.jpg"), FIF_JPEG);
 	}
 
+	//
+	//Set up Game class
+	//
+
+	g_Game = new Game();
+	//load from file
+
 
 	//
-	// 2. Main loop
+	// Main loop
 	// 
 
 	while (!glfwWindowShouldClose(window)) {
@@ -167,52 +190,69 @@ void renderScene()
 
 	mat4 cameraTransform = mainCamera->projectionTransform() * mainCamera->viewTransform();
 
-#if 0
+	mat4 cameraProjection = mainCamera->projectionTransform();
+	mat4 cameraView = mainCamera->viewTransform() * translate(identity<mat4>(), -beastPos);
 
-	demo_render2DStuff(cameraTransform);
-
-	// Render principle axes - no modelling transforms so just use cameraTransform
-	if (showPrincipleAxes) {
+#// Render principle axes - no modelling transforms so just use cameraTransform
+	if (false) {
 
 		mat4 paTransform = cameraTransform * glm::scale(identity<mat4>(), vec3(0.8f, 0.8f, 0.8f));
 		glLoadMatrixf((GLfloat*)&paTransform);
-		principleAxes->render(showZAxis);
+		principleAxes->render(true);
 	}
 
-#endif
+	switch (g_showing)
+	{
+	case 0:
+	{
+		glUseProgram(texDirLightShader);
 
-#if 0
+		GLint pLocation;
+		Helper::SetUniformLocation(texDirLightShader, "viewMatrix", &pLocation);
+		glUniformMatrix4fv(pLocation, 1, GL_FALSE, (GLfloat*)&cameraView);
+		Helper::SetUniformLocation(texDirLightShader, "projMatrix", &pLocation);
+		glUniformMatrix4fv(pLocation, 1, GL_FALSE, (GLfloat*)&cameraProjection);
+		Helper::SetUniformLocation(texDirLightShader, "texture", &pLocation);
+		glUniform1i(pLocation, 0); // set to point to texture unit 0 for AIMeshes
+		Helper::SetUniformLocation(texDirLightShader, "lightDirection", &pLocation);
+		glUniform3fv(pLocation, 1, (GLfloat*)&DLdirection);
+		Helper::SetUniformLocation(texDirLightShader, "lightColour", &pLocation);
+		glUniform3fv(pLocation, 1, (GLfloat*)&DLcolour);
 
-	// Render cube - no modelling transform so leave cameraTransform set in OpenGL and render
-	glLoadMatrixf((GLfloat*)&cameraTransform);
-	cube->render();
+		if (creatureMesh) {
 
-#endif
+			// Setup transforms
+			Helper::SetUniformLocation(texDirLightShader, "modelMatrix", &pLocation);
+			mat4 modelTransform = glm::translate(identity<mat4>(), beastPos) * eulerAngleY<float>(glm::radians<float>(beastRotation));
+			glUniformMatrix4fv(pLocation, 1, GL_FALSE, (GLfloat*)&modelTransform);
 
-#if 1
-	
-	if (creatureMesh) {
+			creatureMesh->setupTextures();
+			creatureMesh->render();
+		}
 
-		// Setup transforms
-		glLoadMatrixf((GLfloat*)&cameraTransform);
+		if (planetMesh) {
 
-		creatureMesh->preRender();
-		creatureMesh->render();
-		creatureMesh->postRender();
+			// Setup transforms
+			Helper::SetUniformLocation(texDirLightShader, "modelMatrix", &pLocation);
+			mat4 modelTransform = glm::translate(identity<mat4>(), vec3(4.0,4.0,4.0));
+			glUniformMatrix4fv(pLocation, 1, GL_FALSE, (GLfloat*)&modelTransform);
+
+			planetMesh->setupTextures();
+			planetMesh->render();
+		}
 	}
-	
-	if (planetMesh) {
+		break;
 
-		// Setup transforms
-		mat4 planetTranslate = translate(identity<mat4>(), vec3(2.0f, 2.0f, 2.0f));
-		mat4 T = cameraTransform * planetTranslate;
-		glLoadMatrixf((GLfloat*)&T);
-
-		planetMesh->preRender();
-		planetMesh->render();
-		planetMesh->postRender();
+	case 1:
+	{
+		// Render cube - no modelling transform so leave cameraTransform set in OpenGL and render
+		//glLoadMatrixf((GLfloat*)&cameraTransform);
+		//cube->render();
+		break;
 	}
-#endif
+	case 2:
+		g_Game->Render();
+	}
 
 }
 
@@ -227,6 +267,8 @@ void updateScene() {
 		gameClock->tick();
 		tDelta = (float)gameClock->gameTimeDelta();
 	}
+
+	g_Game->Update(tDelta);
 }
 
 
@@ -255,6 +297,10 @@ void keyboardHandler(GLFWwindow* window, int key, int scancode, int action, int 
 			case GLFW_KEY_ESCAPE:
 				glfwSetWindowShouldClose(window, true);
 				break;
+
+			case GLFW_KEY_SPACE:
+				g_showing++;
+				g_showing= g_showing %g_NumExamples;
 
 			default:
 			{

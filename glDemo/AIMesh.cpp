@@ -22,10 +22,35 @@ AIMesh::AIMesh(std::string filename, GLuint meshIndex) {
 
 	aiMesh* mesh = scene->mMeshes[meshIndex];
 
+	glGenVertexArrays(1, &vao);
+	glBindVertexArray(vao);
+
 	// Setup VBO for vertex position data
 	glGenBuffers(1, &meshVertexPosBuffer);
 	glBindBuffer(GL_ARRAY_BUFFER, meshVertexPosBuffer);
 	glBufferData(GL_ARRAY_BUFFER, mesh->mNumVertices * sizeof(aiVector3D), mesh->mVertices, GL_STATIC_DRAW);
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, (const GLvoid*)0);
+	glEnableVertexAttribArray(0);
+
+	// Setup VBO for vertex normal data
+	glGenBuffers(1, &meshNormalBuffer);
+	glBindBuffer(GL_ARRAY_BUFFER, meshNormalBuffer);
+	glBufferData(GL_ARRAY_BUFFER, mesh->mNumVertices * sizeof(aiVector3D), mesh->mNormals, GL_STATIC_DRAW);
+	glVertexAttribPointer(3, 3, GL_FLOAT, GL_FALSE, 0, (const GLvoid*)0);
+	glEnableVertexAttribArray(3);
+
+	// *** normal mapping *** Setup VBO for tangent and bi-tangent data
+	glGenBuffers(1, &meshTangentBuffer);
+	glBindBuffer(GL_ARRAY_BUFFER, meshTangentBuffer);
+	glBufferData(GL_ARRAY_BUFFER, mesh->mNumVertices * sizeof(aiVector3D), mesh->mTangents, GL_STATIC_DRAW);
+	glVertexAttribPointer(4, 3, GL_FLOAT, GL_FALSE, 0, (const GLvoid*)0);
+	glEnableVertexAttribArray(4);
+
+	glGenBuffers(1, &meshBiTangentBuffer);
+	glBindBuffer(GL_ARRAY_BUFFER, meshBiTangentBuffer);
+	glBufferData(GL_ARRAY_BUFFER, mesh->mNumVertices * sizeof(aiVector3D), mesh->mBitangents, GL_STATIC_DRAW);
+	glVertexAttribPointer(5, 3, GL_FLOAT, GL_FALSE, 0, (const GLvoid*)0);
+	glEnableVertexAttribArray(5);
 
 	if (mesh->mTextureCoords && mesh->mTextureCoords[0]) {
 
@@ -33,6 +58,8 @@ AIMesh::AIMesh(std::string filename, GLuint meshIndex) {
 		glGenBuffers(1, &meshTexCoordBuffer);
 		glBindBuffer(GL_ARRAY_BUFFER, meshTexCoordBuffer);
 		glBufferData(GL_ARRAY_BUFFER, mesh->mNumVertices * sizeof(aiVector3D), mesh->mTextureCoords[0], GL_STATIC_DRAW);
+		glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, 0, (const GLvoid*)0);
+		glEnableVertexAttribArray(2);
 	}
 	
 	// Setup VBO for mesh index buffer (face index array)
@@ -53,6 +80,8 @@ AIMesh::AIMesh(std::string filename, GLuint meshIndex) {
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, meshFaceIndexBuffer);
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, numBytes, faceIndexArray, GL_STATIC_DRAW);
 
+	glBindVertexArray(0);
+
 	// Once done, release all resources associated with this import
 	aiReleaseImport(scene);
 }
@@ -70,51 +99,48 @@ void AIMesh::addTexture(std::string filename, FREE_IMAGE_FORMAT format) {
 	textureID = loadTexture(filename, format);
 }
 
+// ***normal mapping*** - helper functions at add normal map image to the object
+void AIMesh::addNormalMap(GLuint normalMapID) {
 
-void AIMesh::preRender() {
+	this->normalMapID = normalMapID;
+}
 
-	// Setup VBOs ready for rendering
-	glBindBuffer(GL_ARRAY_BUFFER, meshVertexPosBuffer);
-	glVertexPointer(3, GL_FLOAT, 0, (GLvoid*)0);
-	glEnableClientState(GL_VERTEX_ARRAY);
+void AIMesh::addNormalMap(std::string filename, FREE_IMAGE_FORMAT format) {
+
+	normalMapID = loadTexture(filename, format);
+}
+
+
+// Rendering functions
+
+void AIMesh::setupTextures() {
 
 	if (meshTexCoordBuffer != 0) {
 
-		glBindBuffer(GL_ARRAY_BUFFER, meshTexCoordBuffer);
-		glTexCoordPointer(3, GL_FLOAT, 0, (GLvoid*)0);
-		glEnableClientState(GL_TEXTURE_COORD_ARRAY);
-
 		if (textureID != 0) {
+			
 			glEnable(GL_TEXTURE_2D);
+			
+			glActiveTexture(GL_TEXTURE0);
 			glBindTexture(GL_TEXTURE_2D, textureID);
+
+			//  *** normal mapping ***  check if normal map added - if so bind to texture unit 1
+			if (normalMapID != 0) {
+
+				glActiveTexture(GL_TEXTURE1);
+				glBindTexture(GL_TEXTURE_2D, normalMapID);
+
+				// Restore default
+				glActiveTexture(GL_TEXTURE0);
+			}
 		}
 	}
-
-	// Bind (and leave bound) the index array for drawing
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, meshFaceIndexBuffer);
 }
 
 
 void AIMesh::render() {
 
+	glBindVertexArray(vao);
 	glDrawElements(GL_TRIANGLES, numFaces * 3, GL_UNSIGNED_INT, (const GLvoid*)0);
 }
 
-
-void AIMesh::postRender() {
-
-	glDisableClientState(GL_VERTEX_ARRAY);
-
-	if (meshTexCoordBuffer != 0) {
-	
-		glDisableClientState(GL_TEXTURE_COORD_ARRAY);
-
-		if (textureID != 0) {
-			glDisable(GL_TEXTURE_2D);
-			glBindTexture(GL_TEXTURE_2D, 0);
-		}
-	}
-
-	glBindBuffer(GL_ARRAY_BUFFER, 0);
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
-}
