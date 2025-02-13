@@ -76,20 +76,32 @@ static unsigned int indexArray[] = {
 
 CGPrincipleAxes::CGPrincipleAxes() {
 
+
+	numFaces = 10;
+
+	glGenVertexArrays(1, &vao);
+	glBindVertexArray(vao);
+
 	// setup vbo for position attribute
 	glGenBuffers(1, &vertexBuffer);
 	glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(positionArray), positionArray, GL_STATIC_DRAW);
+	glBufferData(GL_ARRAY_BUFFER, 72 * sizeof(float), positionArray, GL_STATIC_DRAW);
+	glVertexAttribPointer(0, 4, GL_FLOAT, GL_FALSE, 0, (const GLvoid*)0);
+	glEnableVertexAttribArray(0);
 
 	// setup vbo for colour attribute
 	glGenBuffers(1, &colourBuffer);
 	glBindBuffer(GL_ARRAY_BUFFER, colourBuffer);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(colourArray), colourArray, GL_STATIC_DRAW);
+	glBufferData(GL_ARRAY_BUFFER, 72 * sizeof(float), colourArray, GL_STATIC_DRAW);
+	glVertexAttribPointer(4, 4, GL_FLOAT, GL_FALSE, 0, (const GLvoid*)0);
+	glEnableVertexAttribArray(4);
 
-	// setup vbo for principle axis (pa) index buffer
+	// setup vbo for cube) index buffer
 	glGenBuffers(1, &indexBuffer);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, indexBuffer);
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indexArray), indexArray, GL_STATIC_DRAW);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, 20 * sizeof(unsigned int), indexArray, GL_STATIC_DRAW);
+
+	glBindVertexArray(0);
 }
 
 
@@ -105,29 +117,6 @@ CGPrincipleAxes::~CGPrincipleAxes() {
 
 
 void CGPrincipleAxes::render(bool showZAxis) {
-
-	// Setup VBOs ready for rendering
-	glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer);
-	glVertexPointer(4, GL_FLOAT, 0, (GLvoid*)0);
-
-	glBindBuffer(GL_ARRAY_BUFFER, colourBuffer);
-	glColorPointer(4, GL_FLOAT, 0, (GLvoid*)0);
-
-	// Declare which arrays are needed for the semi-circle object
-	glEnableClientState(GL_VERTEX_ARRAY);
-	glEnableClientState(GL_COLOR_ARRAY);
-
-	// Bind (and leave bound) the index array for drawing
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, indexBuffer);
-
-	int numElements = (showZAxis) ? 20 : 12;
-	glDrawElements(GL_LINES, numElements, GL_UNSIGNED_INT, (const GLvoid*)0);
-
-
-	// Declare which arrays are needed for the semi-circle object
-	glDisableClientState(GL_VERTEX_ARRAY);
-	glDisableClientState(GL_COLOR_ARRAY);
-
-	glBindBuffer(GL_ARRAY_BUFFER, 0);
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+	glBindVertexArray(vao);
+	glDrawElements(GL_LINES, numFaces * 3, GL_UNSIGNED_INT, (const GLvoid*)0);
 }

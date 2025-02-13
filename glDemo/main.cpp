@@ -200,11 +200,22 @@ void renderScene()
 	mat4 cameraView = mainCamera->viewTransform() * translate(identity<mat4>(), -beastPos);
 
 #// Render principle axes - no modelling transforms so just use cameraTransform
-	if (false) {
+	if (true) {
 
-		mat4 paTransform = cameraTransform * glm::scale(identity<mat4>(), vec3(0.8f, 0.8f, 0.8f));
-		glLoadMatrixf((GLfloat*)&paTransform);
-		principleAxes->render(true);
+		{
+			// Render cube 
+			glUseProgram(flatColourShader);
+			GLint pLocation;
+			Helper::SetUniformLocation(flatColourShader, "viewMatrix", &pLocation);
+			glUniformMatrix4fv(pLocation, 1, GL_FALSE, (GLfloat*)&cameraView);
+			Helper::SetUniformLocation(flatColourShader, "projMatrix", &pLocation);
+			glUniformMatrix4fv(pLocation, 1, GL_FALSE, (GLfloat*)&cameraProjection);
+			Helper::SetUniformLocation(flatColourShader, "modelMatrix", &pLocation);
+			mat4 modelTransform = identity<mat4>();
+			glUniformMatrix4fv(pLocation, 1, GL_FALSE, (GLfloat*)&modelTransform);
+
+			principleAxes->render();
+		}
 	}
 
 	switch (g_showing)
@@ -259,7 +270,7 @@ void renderScene()
 		Helper::SetUniformLocation(flatColourShader, "projMatrix", &pLocation);
 		glUniformMatrix4fv(pLocation, 1, GL_FALSE, (GLfloat*)&cameraProjection);
 		Helper::SetUniformLocation(flatColourShader, "modelMatrix", &pLocation);
-		mat4 modelTransform = identity<mat4>();
+		mat4 modelTransform = glm::translate(identity<mat4>(), vec3(2.0, 0.0, 2.0));
 		glUniformMatrix4fv(pLocation, 1, GL_FALSE, (GLfloat*)&modelTransform);
 
 		cube->render();
