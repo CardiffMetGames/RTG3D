@@ -1,13 +1,17 @@
 #pragma once
 #include <list>
 #include <string>
-#include <stdio.h>
+#include <fstream>
+#include <iostream>
 
 using namespace std;
 
 class GameObject;
 class cScene;
 struct GLFWwindow;
+class cCamera;
+class cLight;
+class Model;
 
 class Game
 {
@@ -26,9 +30,19 @@ public:
 	//Render Everything
 	void Render();
 
+	//load from file
+	void Load(ifstream& _file);
+
 protected:
 
 	//data structure containing pointers to all my GameObjects
+	int m_numCameras;
+	int m_numLights;
+	int m_numGameObjects;
+	int m_numModels;
+	std::list<cCamera*>    m_Cameras;
+	std::list<cLight*>    m_Lights;
+	std::list<Model*>		m_Models;
 	std::list<GameObject*> m_GameObjects;
 
 };

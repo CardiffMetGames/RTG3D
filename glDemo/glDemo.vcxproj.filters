@@ -99,6 +99,18 @@
     <ClInclude Include="cTransform.h">
       <Filter>Game Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="stringHelp.h">
+      <Filter>Game Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Model.h">
+      <Filter>Game Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ModelFactory.h">
+      <Filter>Game Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="AIModel.h">
+      <Filter>Game Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -153,6 +165,15 @@
       <Filter>Game Source Files</Filter>
     </ClCompile>
     <ClCompile Include="cTransform.cpp">
+      <Filter>Game Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Model.cpp">
+      <Filter>Game Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ModelFactory.cpp">
+      <Filter>Game Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="AIModel.cpp">
       <Filter>Game Source Files</Filter>
     </ClCompile>
   </ItemGroup>

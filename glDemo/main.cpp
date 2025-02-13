@@ -156,6 +156,10 @@ int main() {
 
 	g_Game = new Game();
 	//load from file
+	ifstream manifest;
+	manifest.open("manifest.txt");
+
+	g_Game->Load(manifest);
 
 
 	//
@@ -299,6 +303,8 @@ void updateScene() {
 
 
 #pragma region Event handler functions
+//none of this is currently passed to the Game object
+//probably a good idea to do that
 
 // Function to call when window resized
 void resizeWindow(GLFWwindow* window, int width, int height)

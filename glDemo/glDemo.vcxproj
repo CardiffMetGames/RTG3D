@@ -137,6 +137,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="AIMesh.h" />
+    <ClInclude Include="AIModel.h" />
     <ClInclude Include="ArcballCamera.h" />
     <ClInclude Include="CameraFactory.h" />
     <ClInclude Include="cCamera.h" />
@@ -155,13 +156,17 @@
     <ClInclude Include="GUClock.h" />
     <ClInclude Include="helper.h" />
     <ClInclude Include="LightFactory.h" />
+    <ClInclude Include="Model.h" />
+    <ClInclude Include="ModelFactory.h" />
     <ClInclude Include="PrincipleAxes.h" />
     <ClInclude Include="shader_setup.h" />
+    <ClInclude Include="stringHelp.h" />
     <ClInclude Include="TextureLoader.h" />
     <ClInclude Include="TextureQuad.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AIMesh.cpp" />
+    <ClCompile Include="AIModel.cpp" />
     <ClCompile Include="ArcballCamera.cpp" />
     <ClCompile Include="CameraFactory.cpp" />
     <ClCompile Include="cCamera.cpp" />
@@ -175,6 +180,8 @@
     <ClCompile Include="GUClock.cpp" />
     <ClCompile Include="LightFactory.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Model.cpp" />
+    <ClCompile Include="ModelFactory.cpp" />
     <ClCompile Include="PrincipleAxes.cpp" />
     <ClCompile Include="shader_setup.cpp" />
     <ClCompile Include="TextureLoader.cpp" />

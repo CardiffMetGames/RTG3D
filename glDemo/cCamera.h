@@ -5,8 +5,10 @@
 #include "core.h"
 #include <vector>
 #include <string>
+#include <fstream>
+#include <iostream>
 
-using std::string;
+using namespace std;
 
 using namespace glm;
 
@@ -33,7 +35,7 @@ public:
 
 	//load camera info from the SDF
 	//only load the data for the primitive if loadPrimName = true
-	virtual void Load(FILE* _fp, bool loadPrimName = true);
+	virtual void Load(ifstream& _file);
 
 	//getters
 	string GetType() { return m_type; }
@@ -60,20 +62,6 @@ public:
 	vec3 GetLookAt() { return m_lookAt; }
 	void SetLookAt(vec3 _pos) { m_lookAt = _pos; }
 
-	//our renderpasses are based on cameras for this simple render
-	//this sets up how to render for this type of camera
-	virtual bool RenderSetup(); //returns depthPass
-
-	//should we push this type of camera to the back of the list or put it on the front
-	//cameras that can be main are likely to go to the back
-	bool PushBack() { return m_PB; }
-
-	//if we are using this for a custom render pass
-	//it might need its own shader instead of the main ones
-	bool HasCustomShader() { return m_hasCustomShader; }
-	unsigned int GetCustomShader() { return m_shaderProg; }
-	bool HasCustomShaderTess() { return m_shaderHasTess; }
-
 	//set up shader values for when using this camera in its own render pass
 	virtual void SetRenderValues(unsigned int _prog);
 
@@ -81,8 +69,6 @@ public:
 	virtual void SetGlobalRenderValues(unsigned int _prog) {};
 
 protected:
-	//construct a render target for this camera
-	void MakeRenderTarget(float _screenWidth, float _screenHeight);
 
 	//standard transforms needed to render with this a basic camera
 	glm::mat4 m_projectionMatrix;		// projection matrix
@@ -100,8 +86,6 @@ protected:
 
 	string m_name;
 	string m_type;
-
-	bool m_PB; //see bool PushBack()
 
 	//Frame Buffer stuff for multiple render targets
 	GLuint m_framebufferName = 0;

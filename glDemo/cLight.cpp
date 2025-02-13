@@ -2,27 +2,23 @@
 #include "cLight.h"
 
 #include "helper.h"
+#include "stringHelp.h"
 
 cLight::cLight()
 {
 	m_type = "LIGHT";
-	m_info.m_pos.x = 0.0f;
-	m_info.m_pos.y = 0.0f;
-	m_info.m_pos.z = 0.0f;
+	m_pos.x = 0.0f;
+	m_pos.y = 0.0f;
+	m_pos.z = 0.0f;
 }
 
-void cLight::Load(FILE* _fp)
+void cLight::Load(ifstream& _file)
 {
-	char buffer[256] = { "\0" };
-	char primType[256] = { "\0" };
-	fscanf_s(_fp, "%s%f%f%f", buffer, 256, &m_info.m_pos.x, &m_info.m_pos.y, &m_info.m_pos.z); // POS:	-25.0 0.0 20.0
-	printf("POS: %f %f %f\n", m_info.m_pos.x, m_info.m_pos.y, m_info.m_pos.z);
-	fscanf_s(_fp, "%s%f%f%f", buffer, 256, &m_info.m_col.x, &m_info.m_col.y, &m_info.m_col.z); // COL:	1.0 1.0 1.0
-	printf("COL: %f %f %f\n", m_info.m_col.x, m_info.m_col.y, m_info.m_col.z);
-	fscanf_s(_fp, "%s%f%f%f", buffer, 256, &m_info.m_att.x, &m_info.m_att.y, &m_info.m_att.z); // ATT:	1.0 0.5 0.2
-	printf("ATT: %f %f %f\n", m_info.m_att.x, m_info.m_att.y, m_info.m_att.z);
-	fscanf_s(_fp, "%s%f%f%f", buffer, 256, &m_info.m_amb.x, &m_info.m_amb.y, &m_info.m_amb.z); // AMB:	-25.0 0.0 20.0
-	printf("AMB: %f %f %f\n", m_info.m_amb.x, m_info.m_amb.y, m_info.m_amb.z);
+	StringHelp::String(_file, "Name", m_name);
+	StringHelp::Float3(_file, "POS", m_pos.x, m_pos.y, m_pos.z);
+	StringHelp::Float3(_file, "COL", m_col.x, m_col.y, m_col.z);
+	StringHelp::Float3(_file, "AMB", m_amb.x, m_amb.y, m_amb.z);
+
 }
 
 /////////////////////////////////////////////////////////////////////////////////////
