@@ -45,13 +45,97 @@ GameObject* Game::GetGameObject(string _GOName)
 	return nullptr;
 }
 
+cCamera* Game::GetCamera(string _camName)
+{
+	for (list<cCamera*>::iterator it = m_Cameras.begin(); it != m_Cameras.end(); it++)
+	{
+		if ((*it)->GetName() == _camName)
+		{
+			return (*it);
+		}
+	}
+	printf("Unknown Camera NAME : %s \n", _camName.c_str());
+	assert(0);
+	return nullptr;
+}
+
+cLight* Game::GetLight(string _lightName)
+{
+	for (list<cLight*>::iterator it = m_Lights.begin(); it != m_Lights.end(); it++)
+	{
+		if ((*it)->GetName() == _lightName)
+		{
+			return (*it);
+		}
+	}
+	printf("Unknown Light NAME : %s \n", _lightName.c_str());
+	assert(0);
+	return nullptr;
+}
+
+Texture* Game::GetTexture(string _texName)
+{
+	for (list<Texture*>::iterator it = m_Textures.begin(); it != m_Textures.end(); it++)
+	{
+		if ((*it)->GetName() == _texName)
+		{
+			return (*it);
+		}
+	}
+	printf("Unknown Texture NAME : %s \n", _texName.c_str());
+	assert(0);
+	return nullptr;
+}
+
+Model* Game::GetModel(string _modelName)
+{
+	for (list<Model*>::iterator it = m_Models.begin(); it != m_Models.end(); it++)
+	{
+		if ((*it)->GetName() == _modelName)
+		{
+			return (*it);
+		}
+	}
+	printf("Unknown Model NAME : %s \n", _modelName.c_str());
+	assert(0);
+	return nullptr;
+}
+
+Shader* Game::GetShader(string _shaderName)
+{
+	for (list<Shader*>::iterator it = m_Shaders.begin(); it != m_Shaders.end(); it++)
+	{
+		if ((*it)->GetName() == _shaderName)
+		{
+			return (*it);
+		}
+	}
+	printf("Unknown Shader NAME : %s \n", _shaderName.c_str());
+	assert(0);
+	return nullptr;
+}
+
 
 //Render Everything
 void Game::Render()
 {
 	for (list<GameObject*>::iterator it = m_GameObjects.begin(); it != m_GameObjects.end(); it++)
 	{
-		(*it)->Render();
+		//loop through setting up uniform shader values
+	//current camera
+
+	//all lights
+
+	//	(*it)->Render(useCamera, this);
+	}
+}
+
+void Game::SetShaderUniforms(GLuint _shaderprog)
+{
+	//everything needs to know about all the lights
+	for (list<cLight*>::iterator it = m_Lights.begin(); it != m_Lights.end(); it++)
+	{
+		(*it)->SetRenderValues(_shaderprog);
 	}
 }
 
@@ -130,7 +214,7 @@ void Game::Load(ifstream& _file)
 		//skip {
 		_file.ignore(256, '\n');
 
-		m_Textures.push_back(new Texture(_file) );
+		m_Textures.push_back(new Texture(_file));
 
 		//skip }
 		_file.ignore(256, '\n');
@@ -150,5 +234,60 @@ void Game::Load(ifstream& _file)
 
 		//skip }
 		_file.ignore(256, '\n');
+	}
+
+	cout << endl << endl;
+
+	//load GameObjects
+	_file >> dummy >> m_numGameObjects; _file.ignore(256, '\n');
+	cout << "GAMEOBJECTS : " << m_numGameObjects << endl;
+	for (int i = 0; i < m_numGameObjects; i++)
+	{
+		//skip {
+		_file.ignore(256, '\n');
+
+		string type;
+		_file >> dummy >> type; _file.ignore(256, '\n');
+		GameObject* newGO = GameObjectFactory::makeNewGO(type);
+		newGO->Load(_file);
+
+		m_GameObjects.push_back(newGO);
+
+		//skip }
+		_file.ignore(256, '\n');
+	}
+
+
+}
+
+void Game::Init()
+{
+	//initialise all cameras
+	//game is passed down here to allow for linking of cameras to game objects
+	//this scene is passed down to allow linking to other render objects
+	bool setUseCamera = false;
+	for (list<cCamera*>::iterator it = m_Cameras.begin(); it != m_Cameras.end(); ++it)
+	{
+		(*it)->Init(100, 100, this);// TODO set correct screen sizes here
+
+		//if a camera is called MAIN
+		//this will be the starting camera used
+		if ((*it)->GetName() == "MAIN")
+		{
+			m_useCamera = it;
+			setUseCamera = true;
+		}
+	}
+
+	//if no MAIN camera just find a camera we can use
+	if (!setUseCamera)
+	{
+		m_useCamera = m_Cameras.begin();
+	}
+
+	//set up links between everything and GameObjects
+	for (list<GameObject*>::iterator it = m_GameObjects.begin(); it != m_GameObjects.end(); it++)
+	{
+		(*it)->Init(this);
 	}
 }

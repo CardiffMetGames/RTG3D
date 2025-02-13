@@ -10,6 +10,9 @@ public:
 	~Model();
 
 	virtual void Load(ifstream& _file);
+	virtual void Render() {};
+
+	string GetName() { return m_name; }
 
 protected:
 	string m_name;

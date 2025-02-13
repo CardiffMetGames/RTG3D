@@ -4,7 +4,7 @@
 
 class AIMesh {
 
-	GLuint				numFaces = 0;
+	GLuint				m_numFaces = 0;
 
 	GLuint				vao = 0;
 

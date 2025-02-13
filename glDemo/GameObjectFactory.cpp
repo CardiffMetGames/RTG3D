@@ -1,5 +1,6 @@
 #include "GameObjectFactory.h"
 #include "GameObject.h"
+#include "ExampleGO.h"
 #include <assert.h>
 
 using std::string;
@@ -10,6 +11,10 @@ GameObject* GameObjectFactory::makeNewGO(string _type)
 	if (_type == "GAME_OBJECT")
 	{
 		return new GameObject();
+	}
+	else if (_type == "EXAMPLE")
+	{
+		return new ExampleGO();
 	}
 	else
 	{

@@ -1,10 +1,12 @@
 #pragma once
+#include "core.h"
 #include <stdio.h>
 #include <string>
 
 using namespace std;
-class cMesh;
-class cTransform;
+class Game;
+
+using namespace glm;
 
 //Base class of a GameObject
 class GameObject
@@ -13,28 +15,34 @@ public:
 	GameObject();
 	virtual ~GameObject();
 
-	//load me from the SDF
-	virtual void Load(FILE* fp);
+	//load me from the file
+	virtual void Load(ifstream& _file);
 
 	//update _window allows for Keyboard access
 	virtual void Tick(float _dt);
 
 	//render this object
+	virtual void PreRender();
 	virtual void Render();
 
 	//various getters and setters
-	void SetMesh(cMesh* _mesh) { m_mesh = _mesh; }
-	cMesh* GetMesh() { return m_mesh; }
 	void SetName(string _name) { m_name = _name; }
 	string GetName() { return m_name; }
-	cTransform* GetTransform() { return m_transform; }
+	GLuint GetShaderProg() { return m_ShaderProg; }
+
+	virtual void Init(Game* _game);
 
 protected:
 
 	string m_name;
 	string m_type;
 
-	cMesh* m_mesh = nullptr;
-	cTransform* m_transform = nullptr;
+	vec3		m_pos;
+	vec3		m_rot;		// current rotation angle used to Create the rotation matrix
+	vec3		m_scale;
+	vec3		m_rot_incr;		
+
+	glm::mat4	m_worldMatrix;
+	GLuint m_ShaderProg;
 };
 

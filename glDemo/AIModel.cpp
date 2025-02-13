@@ -19,3 +19,8 @@ void AIModel::Load(ifstream& _file)
 
 	m_AImesh = new AIMesh(fileName);
 }
+
+void AIModel::Render()
+{
+	m_AImesh->render();
+}

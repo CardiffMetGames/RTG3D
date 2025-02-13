@@ -10,6 +10,7 @@ public:
     ~AIModel();
 
     void Load(ifstream& _file);
+    virtual void Render();
 
 protected:
     AIMesh* m_AImesh;

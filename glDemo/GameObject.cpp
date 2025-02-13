@@ -1,34 +1,52 @@
+#include "core.h"
 #include "GameObject.h"
-#include "cTransform.h"
+#include "stringHelp.h"
+#include "helper.h"
+
+using namespace glm;
 
 GameObject::GameObject()
 {
-	m_transform = new cTransform();
 	m_type = "GAMEOBJECT";
 }
 
 GameObject::~GameObject()
 {
-	delete m_transform;
 }
 
-void GameObject::Load(FILE* _fp)
+void GameObject::Load(ifstream& _file)
 {
-	char buffer[256] = { "\0" };
-
-	fscanf_s(_fp, "%s%f%f%f", buffer, 256, &m_transform->m_pos.x, &m_transform->m_pos.y, &m_transform->m_pos.z);					// POS:	0.0 0.0 0.0
-	fscanf_s(_fp, "%s%f%f%f", buffer, 256, &m_transform->m_rot.x, &m_transform->m_rot.y, &m_transform->m_rot.z);					// ROT : 2.0 2.0 0.0
-	fscanf_s(_fp, "%s%f%f%f", buffer, 256, &m_transform->m_rot_incr.x, &m_transform->m_rot_incr.y, &m_transform->m_rot_incr.z);	// ROT_INCR:	1.0 1.0 0.0
-	fscanf_s(_fp, "%s%f%f%f", buffer, 256, &m_transform->m_scale.x, &m_transform->m_scale.y, &m_transform->m_scale.z);			// SCALE : 1.25 1.25 1.25
-	fscanf_s(_fp, "%s%f%f%f", buffer, 256, &m_transform->m_vel.x, &m_transform->m_vel.y, &m_transform->m_vel.z);				// VEL: 0.0  0.0 0.0
-	m_transform->print();
+	StringHelp::String(_file, "NAME", m_name);
+	StringHelp::Float3(_file, "POS", m_pos.x, m_pos.y, m_pos.z);
+	StringHelp::Float3(_file, "ROT", m_rot.x, m_rot.y, m_rot.z);
+	StringHelp::Float3(_file, "SCALE", m_scale.x, m_scale.y, m_scale.z);
+	StringHelp::Float3(_file, "ROT INC", m_rot_incr.x, m_rot_incr.y, m_rot_incr.z);
 }
 
 void GameObject::Tick(float _dt)
 {
-	m_transform->Update();
+	m_rot += m_rot_incr;
+
+	m_worldMatrix = glm::translate(mat4(1.0), vec3(m_pos));
+	m_worldMatrix = glm::rotate(m_worldMatrix, glm::radians(m_rot.x), glm::vec3(1.0f, 0.0f, 0.0f));
+	m_worldMatrix = glm::rotate(m_worldMatrix, glm::radians(m_rot.y), glm::vec3(0.0f, 1.0f, 0.0f));
+	m_worldMatrix = glm::rotate(m_worldMatrix, glm::radians(m_rot.z), glm::vec3(0.0f, 0.0f, 1.0f));
+
+	m_worldMatrix = glm::scale(m_worldMatrix, glm::vec3(m_scale));
+}
+
+void GameObject::PreRender()
+{
+	// Setup model transform
+	GLint pLocation;
+	Helper::SetUniformLocation(m_ShaderProg, "modelMatrix", &pLocation);
+	glUniformMatrix4fv(pLocation, 1, GL_FALSE, (GLfloat*)&m_worldMatrix);
 }
 
 void GameObject::Render()
+{
+}
+
+void GameObject::Init(Game* _game)
 {
 }

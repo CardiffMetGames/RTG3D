@@ -155,11 +155,14 @@ int main() {
 	//
 
 	g_Game = new Game();
-	//load from file
+
 	ifstream manifest;
 	manifest.open("manifest.txt");
 
 	g_Game->Load(manifest);
+	g_Game->Init();
+
+	manifest.close();
 
 
 	//
