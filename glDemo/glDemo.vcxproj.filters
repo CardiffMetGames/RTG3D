@@ -11,12 +11,6 @@
     <Filter Include="Example Source Files">
       <UniqueIdentifier>{e5e40d43-68d8-4de7-8cb8-4de28797190a}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Game Header Files">
-      <UniqueIdentifier>{e0efeabd-2890-473e-beb4-d01a8fd6cc31}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game Source Files">
-      <UniqueIdentifier>{935930dd-f970-454b-8c32-e0fb8f9af4eb}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Base Header Files">
       <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
       <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
@@ -27,6 +21,12 @@
     </Filter>
     <Filter Include="Shaders">
       <UniqueIdentifier>{29b5baed-3895-47a2-a78d-aaf45a6989c8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scene Header Files">
+      <UniqueIdentifier>{e0efeabd-2890-473e-beb4-d01a8fd6cc31}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scene Source Files">
+      <UniqueIdentifier>{935930dd-f970-454b-8c32-e0fb8f9af4eb}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -67,49 +67,52 @@
       <Filter>Base Header Files</Filter>
     </ClInclude>
     <ClInclude Include="CameraFactory.h">
-      <Filter>Game Header Files</Filter>
+      <Filter>Scene Header Files</Filter>
     </ClInclude>
     <ClInclude Include="cCamera.h">
-      <Filter>Game Header Files</Filter>
+      <Filter>Scene Header Files</Filter>
     </ClInclude>
     <ClInclude Include="cLight.h">
-      <Filter>Game Header Files</Filter>
+      <Filter>Scene Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Scene.h">
-      <Filter>Game Header Files</Filter>
+      <Filter>Scene Header Files</Filter>
     </ClInclude>
     <ClInclude Include="GameObject.h">
-      <Filter>Game Header Files</Filter>
+      <Filter>Scene Header Files</Filter>
     </ClInclude>
     <ClInclude Include="GameObjectFactory.h">
-      <Filter>Game Header Files</Filter>
+      <Filter>Scene Header Files</Filter>
     </ClInclude>
     <ClInclude Include="LightFactory.h">
-      <Filter>Game Header Files</Filter>
+      <Filter>Scene Header Files</Filter>
     </ClInclude>
     <ClInclude Include="helper.h">
-      <Filter>Game Header Files</Filter>
+      <Filter>Scene Header Files</Filter>
     </ClInclude>
     <ClInclude Include="stringHelp.h">
-      <Filter>Game Header Files</Filter>
+      <Filter>Scene Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Model.h">
-      <Filter>Game Header Files</Filter>
+      <Filter>Scene Header Files</Filter>
     </ClInclude>
     <ClInclude Include="ModelFactory.h">
-      <Filter>Game Header Files</Filter>
+      <Filter>Scene Header Files</Filter>
     </ClInclude>
     <ClInclude Include="AIModel.h">
-      <Filter>Game Header Files</Filter>
+      <Filter>Scene Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Texture.h">
-      <Filter>Game Header Files</Filter>
+      <Filter>Scene Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Shader.h">
-      <Filter>Game Header Files</Filter>
+      <Filter>Scene Header Files</Filter>
     </ClInclude>
     <ClInclude Include="ExampleGO.h">
-      <Filter>Game Header Files</Filter>
+      <Filter>Scene Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="DirectionLight.h">
+      <Filter>Example Source Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -141,43 +144,46 @@
       <Filter>Base Source Files</Filter>
     </ClCompile>
     <ClCompile Include="CameraFactory.cpp">
-      <Filter>Game Source Files</Filter>
+      <Filter>Scene Source Files</Filter>
     </ClCompile>
     <ClCompile Include="cCamera.cpp">
-      <Filter>Game Source Files</Filter>
+      <Filter>Scene Source Files</Filter>
     </ClCompile>
     <ClCompile Include="cLight.cpp">
-      <Filter>Game Source Files</Filter>
+      <Filter>Scene Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Scene.cpp">
-      <Filter>Game Source Files</Filter>
+      <Filter>Scene Source Files</Filter>
     </ClCompile>
     <ClCompile Include="GameObject.cpp">
-      <Filter>Game Source Files</Filter>
+      <Filter>Scene Source Files</Filter>
     </ClCompile>
     <ClCompile Include="GameObjectFactory.cpp">
-      <Filter>Game Source Files</Filter>
+      <Filter>Scene Source Files</Filter>
     </ClCompile>
     <ClCompile Include="LightFactory.cpp">
-      <Filter>Game Source Files</Filter>
+      <Filter>Scene Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Model.cpp">
-      <Filter>Game Source Files</Filter>
+      <Filter>Scene Source Files</Filter>
     </ClCompile>
     <ClCompile Include="ModelFactory.cpp">
-      <Filter>Game Source Files</Filter>
+      <Filter>Scene Source Files</Filter>
     </ClCompile>
     <ClCompile Include="AIModel.cpp">
-      <Filter>Game Source Files</Filter>
+      <Filter>Scene Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Texture.cpp">
-      <Filter>Game Source Files</Filter>
+      <Filter>Scene Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Shader.cpp">
-      <Filter>Game Source Files</Filter>
+      <Filter>Scene Source Files</Filter>
     </ClCompile>
     <ClCompile Include="ExampleGO.cpp">
-      <Filter>Game Source Files</Filter>
+      <Filter>Scene Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="DirectionLight.cpp">
+      <Filter>Scene Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

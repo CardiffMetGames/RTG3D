@@ -31,9 +31,10 @@ Cube* cube = nullptr;
 
 GLuint flatColourShader;
 
-GLuint texDirLightShader; 
+GLuint texDirLightShader;
 vec3 DLdirection = vec3(0.0f, 1.0f, 0.0f);
 vec3 DLcolour = vec3(1.0f, 1.0f, 1.0f);
+vec3 DLambient = vec3(0.2f, 0.2f, 0.2f);
 
 AIMesh* creatureMesh = nullptr;
 vec3 beastPos = vec3(2.0f, 0.0f, 0.0f);
@@ -69,7 +70,7 @@ int main() {
 	//
 	// 1. Initialisation
 	//
-	
+
 	gameClock = new GUClock();
 
 #pragma region OpenGL and window setup
@@ -93,7 +94,7 @@ int main() {
 		return -1;
 	}
 	glfwMakeContextCurrent(window);
-	
+
 
 	// Set callback functions to handle different events
 	glfwSetFramebufferSizeCallback(window, resizeWindow); // resize window callback
@@ -106,7 +107,7 @@ int main() {
 	// Initialise glew
 	glewInit();
 
-	
+
 	// Setup window's initial size
 	resizeWindow(window, initWidth, initHeight);
 
@@ -119,10 +120,10 @@ int main() {
 
 	glPolygonMode(GL_FRONT, GL_FILL);
 	glPolygonMode(GL_BACK, GL_LINE);
-	
+
 	glFrontFace(GL_CCW);
 	glEnable(GL_CULL_FACE);
-	
+
 	glEnable(GL_DEPTH_TEST);
 	glDepthFunc(GL_LEQUAL);
 
@@ -134,7 +135,7 @@ int main() {
 	flatColourShader = setupShaders(string("Assets\\Shaders\\flatColour.vert"), string("Assets\\Shaders\\flatColour.frag"));
 
 	mainCamera = new ArcballCamera(0.0f, 0.0f, 1.98595f, 55.0f, 1.0f, 0.1f, 500.0f);
-	
+
 	principleAxes = new CGPrincipleAxes();
 
 	cube = new Cube();
@@ -176,7 +177,7 @@ int main() {
 		glfwSwapBuffers(window);			// Displays what was just rendered (using double buffering).
 
 		glfwPollEvents();					// Use this version when animating as fast as possible
-	
+
 		// update window title
 		char timingString[256];
 		sprintf_s(timingString, 256, "CIS5013: Average fps: %.0f; Average spf: %f", gameClock->averageFPS(), gameClock->averageSPF() / 1000.0f);
@@ -238,11 +239,12 @@ void renderScene()
 		glUniformMatrix4fv(pLocation, 1, GL_FALSE, (GLfloat*)&cameraProjection);
 		Helper::SetUniformLocation(texDirLightShader, "texture", &pLocation);
 		glUniform1i(pLocation, 0); // set to point to texture unit 0 for AIMeshes
-		Helper::SetUniformLocation(texDirLightShader, "lightDirection", &pLocation);
+		Helper::SetUniformLocation(texDirLightShader, "DIRDir", &pLocation);
 		glUniform3fv(pLocation, 1, (GLfloat*)&DLdirection);
-		Helper::SetUniformLocation(texDirLightShader, "lightColour", &pLocation);
+		Helper::SetUniformLocation(texDirLightShader, "DIRCol", &pLocation);
 		glUniform3fv(pLocation, 1, (GLfloat*)&DLcolour);
-
+		Helper::SetUniformLocation(texDirLightShader, "DIRAmb", &pLocation);
+		glUniform3fv(pLocation, 1, (GLfloat*)&DLambient);
 		if (creatureMesh) {
 
 			// Setup transforms
@@ -258,14 +260,14 @@ void renderScene()
 
 			// Setup transforms
 			Helper::SetUniformLocation(texDirLightShader, "modelMatrix", &pLocation);
-			mat4 modelTransform = glm::translate(identity<mat4>(), vec3(4.0,4.0,4.0));
+			mat4 modelTransform = glm::translate(identity<mat4>(), vec3(4.0, 4.0, 4.0));
 			glUniformMatrix4fv(pLocation, 1, GL_FALSE, (GLfloat*)&modelTransform);
 
 			planetMesh->setupTextures();
 			planetMesh->render();
 		}
 	}
-		break;
+	break;
 
 	case 1:
 	{
@@ -329,26 +331,26 @@ void keyboardHandler(GLFWwindow* window, int key, int scancode, int action, int 
 		// check which key was pressed...
 		switch (key)
 		{
-			case GLFW_KEY_ESCAPE:
-				glfwSetWindowShouldClose(window, true);
-				break;
+		case GLFW_KEY_ESCAPE:
+			glfwSetWindowShouldClose(window, true);
+			break;
 
-			case GLFW_KEY_SPACE:
-				g_showing++;
-				g_showing= g_showing %g_NumExamples;
+		case GLFW_KEY_SPACE:
+			g_showing++;
+			g_showing = g_showing % g_NumExamples;
 
-			default:
-			{
-			}
+		default:
+		{
+		}
 		}
 	}
 	else if (action == GLFW_RELEASE) {
 		// handle key release events
 		switch (key)
 		{
-			default:
-			{
-			}
+		default:
+		{
+		}
 		}
 	}
 }

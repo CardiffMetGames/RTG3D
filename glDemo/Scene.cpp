@@ -16,9 +16,21 @@ Scene::Scene()
 }
 
 //tick all my Game Objects
-//the window is being passed in to allow things liek keyboard control of your player character
 void Scene::Update(float _dt)
 {
+	//update all lights
+	for (list<cLight*>::iterator it = m_Lights.begin(); it != m_Lights.end(); it++)
+	{
+		(*it)->Tick(_dt);
+	}
+
+	//update all cameras
+	for (list<cCamera*>::iterator it = m_Cameras.begin(); it != m_Cameras.end(); it++)
+	{
+		(*it)->Tick(_dt);
+	}
+
+	//update all GameObjects
 	for (list<GameObject*>::iterator it = m_GameObjects.begin(); it != m_GameObjects.end(); it++)
 	{
 		(*it)->Tick(_dt);
@@ -121,12 +133,21 @@ void Scene::Render()
 {
 	for (list<GameObject*>::iterator it = m_GameObjects.begin(); it != m_GameObjects.end(); it++)
 	{
-		//loop through setting up uniform shader values
-	//current camera
+		//set shader program using
+		GLuint SP = (*it)->GetShaderProg();
+		glUseProgram(SP);
 
-	//all lights
+		//set up for uniform shader values for current camera
+		m_useCamera->SetRenderValues(SP);
 
-	//	(*it)->Render(useCamera, this);
+		//loop through setting up uniform shader values for anything else
+		SetShaderUniforms(SP);
+
+		//set any uniform shader values for the actual model
+		(*it)->PreRender();
+
+		//actually render the GameObject
+		(*it)->Render();
 	}
 }
 
@@ -150,6 +171,7 @@ void Scene::Load(ifstream& _file)
 	{
 		//skip {
 		_file.ignore(256, '\n');
+		cout << "{\n";
 
 		string type;
 		_file >> dummy >> type; _file.ignore(256, '\n');
@@ -160,6 +182,7 @@ void Scene::Load(ifstream& _file)
 
 		//skip }
 		_file.ignore(256, '\n');
+		cout << "}\n";
 	}
 
 	cout << endl << endl;
@@ -171,6 +194,7 @@ void Scene::Load(ifstream& _file)
 	{
 		//skip {
 		_file.ignore(256, '\n');
+		cout << "{\n";
 
 		string type;
 		_file >> dummy >> type; _file.ignore(256, '\n');
@@ -181,6 +205,7 @@ void Scene::Load(ifstream& _file)
 
 		//skip }
 		_file.ignore(256, '\n');
+		cout << "}\n";
 	}
 
 	cout << endl << endl;
@@ -192,6 +217,7 @@ void Scene::Load(ifstream& _file)
 	{
 		//skip {
 		_file.ignore(256, '\n');
+		cout << "{\n";
 
 		string type;
 		_file >> dummy >> type; _file.ignore(256, '\n');
@@ -202,6 +228,7 @@ void Scene::Load(ifstream& _file)
 
 		//skip }
 		_file.ignore(256, '\n');
+		cout << "}\n";
 	}
 
 	cout << endl << endl;
@@ -213,11 +240,13 @@ void Scene::Load(ifstream& _file)
 	{
 		//skip {
 		_file.ignore(256, '\n');
+		cout << "{\n";
 
 		m_Textures.push_back(new Texture(_file));
 
 		//skip }
 		_file.ignore(256, '\n');
+		cout << "}\n";
 	}
 
 	cout << endl << endl;
@@ -229,11 +258,13 @@ void Scene::Load(ifstream& _file)
 	{
 		//skip {
 		_file.ignore(256, '\n');
+		cout << "{\n";
 
 		m_Shaders.push_back(new Shader(_file));
 
 		//skip }
 		_file.ignore(256, '\n');
+		cout << "}\n";
 	}
 
 	cout << endl << endl;
@@ -245,6 +276,7 @@ void Scene::Load(ifstream& _file)
 	{
 		//skip {
 		_file.ignore(256, '\n');
+		cout << "{\n";
 
 		string type;
 		_file >> dummy >> type; _file.ignore(256, '\n');
@@ -255,6 +287,7 @@ void Scene::Load(ifstream& _file)
 
 		//skip }
 		_file.ignore(256, '\n');
+		cout << "}\n";
 	}
 
 
@@ -265,7 +298,6 @@ void Scene::Init()
 	//initialise all cameras
 	//game is passed down here to allow for linking of cameras to game objects
 	//this scene is passed down to allow linking to other render objects
-	bool setUseCamera = false;
 	for (list<cCamera*>::iterator it = m_Cameras.begin(); it != m_Cameras.end(); ++it)
 	{
 		(*it)->Init(100, 100, this);// TODO set correct screen sizes here
@@ -274,15 +306,14 @@ void Scene::Init()
 		//this will be the starting camera used
 		if ((*it)->GetName() == "MAIN")
 		{
-			m_useCamera = it;
-			setUseCamera = true;
+			m_useCamera = (*it);
 		}
 	}
 
 	//if no MAIN camera just find a camera we can use
-	if (!setUseCamera)
+	if (!m_useCamera)
 	{
-		m_useCamera = m_Cameras.begin();
+		m_useCamera = (*m_Cameras.begin());
 	}
 
 	//set up links between everything and GameObjects

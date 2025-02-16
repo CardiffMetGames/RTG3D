@@ -33,14 +33,14 @@ void cCamera::Init(float _screenWidth, float _screenHeight, Scene* _scene)
 /////////////////////////////////////////////////////////////////////////////////////
 // Update() - 
 /////////////////////////////////////////////////////////////////////////////////////
-void cCamera::Update(cCamera* _main)
+void cCamera::Tick(float _dt)
 {
 	m_viewMatrix = glm::lookAt(m_pos, m_lookAt, vec3(0, 1, 0));
 }
 
 void cCamera::Load(ifstream& _file)
 {
-	StringHelp::String(_file,"NAME", m_name);
+	StringHelp::String(_file, "NAME", m_name);
 	StringHelp::Float3(_file, "POS", m_pos.x, m_pos.y, m_pos.z);
 	StringHelp::Float3(_file, "LOOKAT", m_lookAt.x, m_lookAt.y, m_lookAt.z);
 	StringHelp::Float(_file, "FOV", m_fov);

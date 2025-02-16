@@ -11,9 +11,6 @@ using namespace glm;
 
 using namespace std;
 
-class cMesh;
-struct GLFWwindow;
-
 //base class for a light
 class cLight
 {
@@ -32,8 +29,7 @@ public:
 	virtual void Load(ifstream& _file);
 
 	//tick this light
-	//as for Game Objects bring in _window to allow for keyboard access
-	virtual void Update(GLFWwindow* _window);
+	virtual void Tick(float _dt);
 
 	//Getters and Setters
 	void SetName(string _name) { m_name = _name; }

@@ -29,7 +29,7 @@ public:
 	virtual void Init(float _w, float _h, Scene* _scene);
 
 	//tick this camera
-	virtual void Update(cCamera* _main);
+	virtual void Tick(float _dt);
 
 	//load camera info from the SDF
 	//only load the data for the primitive if loadPrimName = true

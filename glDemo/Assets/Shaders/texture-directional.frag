@@ -6,8 +6,9 @@
 uniform sampler2D texture;
 
 // Directional light model
-uniform vec3 lightDirection;
-uniform vec3 lightColour;
+uniform vec3 DIRDir;
+uniform vec3 DIRCol;
+uniform vec3 DIRAmb;
 
 
 in SimplePacket {
@@ -25,12 +26,12 @@ void main(void) {
 
 	// calculate lambertian (l)
 	vec3 N = normalize(inputFragment.surfaceNormal);
-	float l = dot(N, lightDirection);
+	float l = dot(N, DIRDir);
 
 	// Calculate diffuse brightness / colour for fragment
 	vec4 surfaceColour = texture2D(texture, inputFragment.texCoord);
-	vec3 diffuseColour = surfaceColour.rgb * lightColour * l;
+	vec3 diffuseColour = surfaceColour.rgb * DIRCol * l;
 
-	fragColour = vec4(diffuseColour, 1.0);
+	fragColour = vec4(DIRAmb,1.0)+vec4(diffuseColour, 1.0);
 	//fragColour = vec4(vec3(l, l, l), 1.0);
 }

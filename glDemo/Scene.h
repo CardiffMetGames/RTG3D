@@ -54,7 +54,7 @@ protected:
 	int m_numTextures;
 	int m_numShaders;
 	std::list<cCamera*>    m_Cameras;
-	list<cCamera*>::iterator m_useCamera; //current main camera in use
+	cCamera* m_useCamera = nullptr; //current main camera in use
 	std::list<cLight*>    m_Lights;
 	std::list<Model*>		m_Models;
 	std::list<Texture*>		m_Textures;
