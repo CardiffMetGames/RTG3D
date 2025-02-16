@@ -64,7 +64,7 @@ AIMesh::AIMesh(std::string filename, GLuint meshIndex) {
 	
 	// Setup VBO for mesh index buffer (face index array)
 
-	numFaces = scene->mMeshes[meshIndex]->mNumFaces;
+	m_numFaces = scene->mMeshes[meshIndex]->mNumFaces;
 
 	// Setup contiguous array
 	const GLuint numBytes = scene->mMeshes[meshIndex]->mNumFaces * 3 * sizeof(GLuint);
@@ -141,6 +141,6 @@ void AIMesh::setupTextures() {
 void AIMesh::render() {
 
 	glBindVertexArray(vao);
-	glDrawElements(GL_TRIANGLES, numFaces * 3, GL_UNSIGNED_INT, (const GLvoid*)0);
+	glDrawElements(GL_TRIANGLES, m_numFaces * 3, GL_UNSIGNED_INT, (const GLvoid*)0);
 }
 

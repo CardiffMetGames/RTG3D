@@ -8,8 +8,8 @@ Texture::Texture(ifstream& _file)
 	string fileName;
 	StringHelp::String(_file, "TYPE", type);
 	StringHelp::String(_file, "NAME", m_name);
-	StringHelp::String(_file, "File", fileName);
-	FREE_IMAGE_FORMAT format;
+	StringHelp::String(_file, "FILE", fileName);
+	FREE_IMAGE_FORMAT format = FIF_UNKNOWN;
 
 	if (type == "FIF_BMP")
 	{
@@ -162,6 +162,11 @@ Texture::Texture(ifstream& _file)
 	else if (type == "FIF_JXR")
 	{
 		format = FIF_JXR;
+	}
+	else
+	{
+		cout << "Unknown Texture type : " << type << endl;
+		assert(0);
 	}
 
 

@@ -14,7 +14,7 @@ using namespace glm;
 
 class cTransform;
 class cLight;
-class Game;
+class Scene;
 
 //base class for a camera
 
@@ -26,7 +26,7 @@ public:
 
 	//initialise the camera _width _height
 	// game maybe needed for more involved cameras to connect to relvant GOs and lights/shaders etc
-	virtual void Init(float _w, float _h, Game* _game);
+	virtual void Init(float _w, float _h, Scene* _scene);
 
 	//tick this camera
 	virtual void Update(cCamera* _main);

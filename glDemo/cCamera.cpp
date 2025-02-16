@@ -1,5 +1,4 @@
 #include "cCamera.h"
-#include "cTransform.h"
 #include "helper.h"
 #include <fstream>
 #include <iostream>
@@ -25,7 +24,7 @@ cCamera::~cCamera()
 /////////////////////////////////////////////////////////////////////////////////////
 // Init() - 
 /////////////////////////////////////////////////////////////////////////////////////
-void cCamera::Init(float _screenWidth, float _screenHeight, Game* _game)
+void cCamera::Init(float _screenWidth, float _screenHeight, Scene* _scene)
 {
 	float aspect_ratio = _screenWidth / _screenHeight;
 	m_projectionMatrix = glm::perspective(glm::radians(m_fov), aspect_ratio, m_near, m_far);
@@ -41,7 +40,7 @@ void cCamera::Update(cCamera* _main)
 
 void cCamera::Load(ifstream& _file)
 {
-	StringHelp::String(_file,"Name", m_name);
+	StringHelp::String(_file,"NAME", m_name);
 	StringHelp::Float3(_file, "POS", m_pos.x, m_pos.y, m_pos.z);
 	StringHelp::Float3(_file, "LOOKAT", m_lookAt.x, m_lookAt.y, m_lookAt.z);
 	StringHelp::Float(_file, "FOV", m_fov);

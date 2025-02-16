@@ -47,6 +47,6 @@ void GameObject::Render()
 {
 }
 
-void GameObject::Init(Game* _game)
+void GameObject::Init(Scene* _scene)
 {
 }

@@ -19,7 +19,7 @@ public:
     virtual void PreRender();
     virtual void Render();
 
-    virtual void Init(Game* _game);
+    virtual void Init(Scene* _scene);
 
 protected:
 

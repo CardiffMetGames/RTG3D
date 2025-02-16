@@ -4,7 +4,7 @@
 #include <string>
 
 using namespace std;
-class Game;
+class Scene;
 
 using namespace glm;
 
@@ -30,7 +30,7 @@ public:
 	string GetName() { return m_name; }
 	GLuint GetShaderProg() { return m_ShaderProg; }
 
-	virtual void Init(Game* _game);
+	virtual void Init(Scene* _game);
 
 protected:
 

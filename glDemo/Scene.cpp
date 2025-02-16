@@ -1,4 +1,4 @@
-#include "Game.h"
+#include "Scene.h"
 #include "GameObject.h"
 #include "CameraFactory.h"
 #include "cCamera.h"
@@ -11,13 +11,13 @@
 #include "GameObjectFactory.h"
 #include <assert.h>
 
-Game::Game()
+Scene::Scene()
 {
 }
 
 //tick all my Game Objects
 //the window is being passed in to allow things liek keyboard control of your player character
-void Game::Update(float _dt)
+void Scene::Update(float _dt)
 {
 	for (list<GameObject*>::iterator it = m_GameObjects.begin(); it != m_GameObjects.end(); it++)
 	{
@@ -25,13 +25,13 @@ void Game::Update(float _dt)
 	}
 }
 
-void Game::AddGameObject(GameObject* _new)
+void Scene::AddGameObject(GameObject* _new)
 {
 	m_GameObjects.push_back(_new);
 }
 
 //I want THAT Game Object by name
-GameObject* Game::GetGameObject(string _GOName)
+GameObject* Scene::GetGameObject(string _GOName)
 {
 	for (list<GameObject*>::iterator it = m_GameObjects.begin(); it != m_GameObjects.end(); it++)
 	{
@@ -45,7 +45,7 @@ GameObject* Game::GetGameObject(string _GOName)
 	return nullptr;
 }
 
-cCamera* Game::GetCamera(string _camName)
+cCamera* Scene::GetCamera(string _camName)
 {
 	for (list<cCamera*>::iterator it = m_Cameras.begin(); it != m_Cameras.end(); it++)
 	{
@@ -59,7 +59,7 @@ cCamera* Game::GetCamera(string _camName)
 	return nullptr;
 }
 
-cLight* Game::GetLight(string _lightName)
+cLight* Scene::GetLight(string _lightName)
 {
 	for (list<cLight*>::iterator it = m_Lights.begin(); it != m_Lights.end(); it++)
 	{
@@ -73,7 +73,7 @@ cLight* Game::GetLight(string _lightName)
 	return nullptr;
 }
 
-Texture* Game::GetTexture(string _texName)
+Texture* Scene::GetTexture(string _texName)
 {
 	for (list<Texture*>::iterator it = m_Textures.begin(); it != m_Textures.end(); it++)
 	{
@@ -87,7 +87,7 @@ Texture* Game::GetTexture(string _texName)
 	return nullptr;
 }
 
-Model* Game::GetModel(string _modelName)
+Model* Scene::GetModel(string _modelName)
 {
 	for (list<Model*>::iterator it = m_Models.begin(); it != m_Models.end(); it++)
 	{
@@ -101,7 +101,7 @@ Model* Game::GetModel(string _modelName)
 	return nullptr;
 }
 
-Shader* Game::GetShader(string _shaderName)
+Shader* Scene::GetShader(string _shaderName)
 {
 	for (list<Shader*>::iterator it = m_Shaders.begin(); it != m_Shaders.end(); it++)
 	{
@@ -117,7 +117,7 @@ Shader* Game::GetShader(string _shaderName)
 
 
 //Render Everything
-void Game::Render()
+void Scene::Render()
 {
 	for (list<GameObject*>::iterator it = m_GameObjects.begin(); it != m_GameObjects.end(); it++)
 	{
@@ -130,7 +130,7 @@ void Game::Render()
 	}
 }
 
-void Game::SetShaderUniforms(GLuint _shaderprog)
+void Scene::SetShaderUniforms(GLuint _shaderprog)
 {
 	//everything needs to know about all the lights
 	for (list<cLight*>::iterator it = m_Lights.begin(); it != m_Lights.end(); it++)
@@ -139,7 +139,7 @@ void Game::SetShaderUniforms(GLuint _shaderprog)
 	}
 }
 
-void Game::Load(ifstream& _file)
+void Scene::Load(ifstream& _file)
 {
 	string dummy;
 
@@ -260,7 +260,7 @@ void Game::Load(ifstream& _file)
 
 }
 
-void Game::Init()
+void Scene::Init()
 {
 	//initialise all cameras
 	//game is passed down here to allow for linking of cameras to game objects

@@ -12,5 +12,5 @@ Model::~Model()
 
 void Model::Load(ifstream& _file)
 {
-	StringHelp::String(_file, "Name", m_name);
+	StringHelp::String(_file, "NAME", m_name);
 }

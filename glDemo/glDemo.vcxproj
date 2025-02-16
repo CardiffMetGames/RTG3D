@@ -143,11 +143,10 @@
     <ClInclude Include="cCamera.h" />
     <ClInclude Include="cLight.h" />
     <ClInclude Include="core.h" />
-    <ClInclude Include="cTransform.h" />
     <ClInclude Include="Cube.h" />
     <ClInclude Include="ExampleGO.h" />
     <ClInclude Include="FreeImage\FreeImage.h" />
-    <ClInclude Include="Game.h" />
+    <ClInclude Include="Scene.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="GameObjectFactory.h" />
     <ClInclude Include="GLFW\glfw3.h" />
@@ -164,7 +163,6 @@
     <ClInclude Include="stringHelp.h" />
     <ClInclude Include="Texture.h" />
     <ClInclude Include="TextureLoader.h" />
-    <ClInclude Include="TextureQuad.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AIMesh.cpp" />
@@ -174,10 +172,9 @@
     <ClCompile Include="cCamera.cpp" />
     <ClCompile Include="cLight.cpp" />
     <ClCompile Include="core.cpp" />
-    <ClCompile Include="cTransform.cpp" />
     <ClCompile Include="Cube.cpp" />
     <ClCompile Include="ExampleGO.cpp" />
-    <ClCompile Include="Game.cpp" />
+    <ClCompile Include="Scene.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="GameObjectFactory.cpp" />
     <ClCompile Include="GUClock.cpp" />
@@ -190,7 +187,6 @@
     <ClCompile Include="shader_setup.cpp" />
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="TextureLoader.cpp" />
-    <ClCompile Include="TextureQuad.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="manifest.txt" />

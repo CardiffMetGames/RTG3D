@@ -8,7 +8,7 @@
 #include "helper.h"
 #include "AIMesh.h"
 #include "Cube.h"
-#include "Game.h"
+#include "Scene.h"
 
 
 using namespace std;
@@ -44,7 +44,7 @@ int g_showing = 0;
 int g_NumExamples = 3;
 
 //Global Game Object
-Game* g_Game = nullptr;
+Scene* g_Scene = nullptr;
 
 // Window size
 const unsigned int initWidth = 512;
@@ -154,13 +154,13 @@ int main() {
 	//Set up Game class
 	//
 
-	g_Game = new Game();
+	g_Scene = new Scene();
 
 	ifstream manifest;
 	manifest.open("manifest.txt");
 
-	g_Game->Load(manifest);
-	g_Game->Init();
+	g_Scene->Load(manifest);
+	g_Scene->Init();
 
 	manifest.close();
 
@@ -284,7 +284,7 @@ void renderScene()
 		break;
 	}
 	case 2:
-		g_Game->Render();
+		g_Scene->Render();
 	}
 
 }
@@ -301,7 +301,7 @@ void updateScene() {
 		tDelta = (float)gameClock->gameTimeDelta();
 	}
 
-	g_Game->Update(tDelta);
+	g_Scene->Update(tDelta);
 }
 
 

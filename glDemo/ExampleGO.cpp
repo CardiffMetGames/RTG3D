@@ -1,7 +1,7 @@
 #include "ExampleGO.h"
 #include "AIModel.h"
 #include "stringHelp.h"
-#include "game.h"
+#include "Scene.h"
 #include "Shader.h"
 #include "Texture.h"
 
@@ -42,9 +42,9 @@ void ExampleGO::Render()
 	m_model->Render();
 }
 
-void ExampleGO::Init(Game* _game)
+void ExampleGO::Init(Scene* _scene)
 {
-	m_ShaderProg = _game->GetShader(m_ShaderName)->GetProg();
-	m_texture = _game->GetTexture(m_TexName)->GetTexID();
-	m_model = _game->GetModel(m_ModelName);
+	m_ShaderProg = _scene->GetShader(m_ShaderName)->GetProg();
+	m_texture = _scene->GetTexture(m_TexName)->GetTexID();
+	m_model = _scene->GetModel(m_ModelName);
 }

@@ -8,7 +8,6 @@
 using namespace std;
 
 class GameObject;
-class cScene;
 struct GLFWwindow;
 class cCamera;
 class cLight;
@@ -16,10 +15,10 @@ class Model;
 class Texture;
 class Shader;
 
-class Game
+class Scene
 {
 public:
-	Game();
+	Scene();
 	//tick all GOs
 	//_window allows for keyboard access
 	void Update(float _dt);

@@ -14,7 +14,7 @@ cLight::cLight()
 
 void cLight::Load(ifstream& _file)
 {
-	StringHelp::String(_file, "Name", m_name);
+	StringHelp::String(_file, "NAME", m_name);
 	StringHelp::Float3(_file, "POS", m_pos.x, m_pos.y, m_pos.z);
 	StringHelp::Float3(_file, "COL", m_col.x, m_col.y, m_col.z);
 	StringHelp::Float3(_file, "AMB", m_amb.x, m_amb.y, m_amb.z);
