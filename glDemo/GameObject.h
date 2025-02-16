@@ -2,6 +2,7 @@
 #include "core.h"
 #include <stdio.h>
 #include <string>
+#include "RenderPass.h"
 
 using namespace std;
 class Scene;
@@ -32,6 +33,8 @@ public:
 
 	virtual void Init(Scene* _game);
 
+	RenderPass GetRP() { return m_RP; }
+
 protected:
 
 	string m_name;
@@ -44,5 +47,7 @@ protected:
 
 	glm::mat4	m_worldMatrix;
 	GLuint m_ShaderProg;
+
+	RenderPass m_RP = RP_OPAQUE;
 };
 

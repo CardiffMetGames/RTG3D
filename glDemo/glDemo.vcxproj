@@ -147,6 +147,7 @@
     <ClInclude Include="DirectionLight.h" />
     <ClInclude Include="ExampleGO.h" />
     <ClInclude Include="FreeImage\FreeImage.h" />
+    <ClInclude Include="RenderPass.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="GameObjectFactory.h" />

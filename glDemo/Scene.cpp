@@ -131,24 +131,32 @@ Shader* Scene::GetShader(string _shaderName)
 //Render Everything
 void Scene::Render()
 {
+	//Set up for the Opaque Render Pass will go here
+	//check out the example stuff back in main.cpp to see what needs setting up
 	for (list<GameObject*>::iterator it = m_GameObjects.begin(); it != m_GameObjects.end(); it++)
 	{
-		//set shader program using
-		GLuint SP = (*it)->GetShaderProg();
-		glUseProgram(SP);
+		if((*it)->GetRP()==RP_OPAQUE)
+		{
 
-		//set up for uniform shader values for current camera
-		m_useCamera->SetRenderValues(SP);
+			//set shader program using
+			GLuint SP = (*it)->GetShaderProg();
+			glUseProgram(SP);
 
-		//loop through setting up uniform shader values for anything else
-		SetShaderUniforms(SP);
+			//set up for uniform shader values for current camera
+			m_useCamera->SetRenderValues(SP);
 
-		//set any uniform shader values for the actual model
-		(*it)->PreRender();
+			//loop through setting up uniform shader values for anything else
+			SetShaderUniforms(SP);
 
-		//actually render the GameObject
-		(*it)->Render();
+			//set any uniform shader values for the actual model
+			(*it)->PreRender();
+
+			//actually render the GameObject
+			(*it)->Render();
+		}
 	}
+	
+	//now do the same for RP_TRANSPARENT here
 }
 
 void Scene::SetShaderUniforms(GLuint _shaderprog)
@@ -296,8 +304,7 @@ void Scene::Load(ifstream& _file)
 void Scene::Init()
 {
 	//initialise all cameras
-	//game is passed down here to allow for linking of cameras to game objects
-	//this scene is passed down to allow linking to other render objects
+	//scene is passed down here to allow for linking of cameras to game objects
 	for (list<cCamera*>::iterator it = m_Cameras.begin(); it != m_Cameras.end(); ++it)
 	{
 		(*it)->Init(100, 100, this);// TODO set correct screen sizes here
@@ -310,7 +317,7 @@ void Scene::Init()
 		}
 	}
 
-	//if no MAIN camera just find a camera we can use
+	//if no MAIN camera just use the first one
 	if (!m_useCamera)
 	{
 		m_useCamera = (*m_Cameras.begin());
