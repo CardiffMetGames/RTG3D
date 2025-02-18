@@ -8,7 +8,6 @@
 using namespace std;
 
 class GameObject;
-struct GLFWwindow;
 class cCamera;
 class cLight;
 class Model;

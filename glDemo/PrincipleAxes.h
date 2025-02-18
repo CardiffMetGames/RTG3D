@@ -8,17 +8,17 @@ class CGPrincipleAxes  {
 
 private:
 
-	GLuint				numFaces = 0;
-	GLuint				vao = 0;
+	GLuint				m_numFaces = 0;
+	GLuint				m_vao = 0;
 
-	GLuint					vertexBuffer;
-	GLuint					colourBuffer;
-	GLuint					indexBuffer;
+	GLuint				m_vertexBuffer;
+	GLuint				m_colourBuffer;
+	GLuint				m_indexBuffer;
 
 public:
 
 	CGPrincipleAxes();
 	~CGPrincipleAxes();
 
-	void render(bool showZAxis = true);
+	void render(bool _showZAxis = true);
 };

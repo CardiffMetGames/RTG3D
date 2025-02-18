@@ -131,7 +131,7 @@ Shader* Scene::GetShader(string _shaderName)
 //Render Everything
 void Scene::Render()
 {
-	//Set up for the Opaque Render Pass will go here
+	//TODO: Set up for the Opaque Render Pass will go here
 	//check out the example stuff back in main.cpp to see what needs setting up
 	for (list<GameObject*>::iterator it = m_GameObjects.begin(); it != m_GameObjects.end(); it++)
 	{
@@ -156,7 +156,7 @@ void Scene::Render()
 		}
 	}
 	
-	//now do the same for RP_TRANSPARENT here
+	//TODO: now do the same for RP_TRANSPARENT here
 }
 
 void Scene::SetShaderUniforms(GLuint _shaderprog)

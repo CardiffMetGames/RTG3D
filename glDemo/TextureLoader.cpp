@@ -5,14 +5,14 @@ using namespace std;
 
 
 // Utility function to load an image using FreeImage, convert to 32 bits-per-pixel (bpp) and setup and return a new texture object based on this.
-GLuint loadTexture(string filename, FREE_IMAGE_FORMAT srcImageType) {
+GLuint loadTexture(string _filename, FREE_IMAGE_FORMAT _srcImageType) {
 
 	// Load and validate bitmap
-	FIBITMAP* loadedBitmap = FreeImage_Load(srcImageType, filename.c_str(), BMP_DEFAULT);
+	FIBITMAP* loadedBitmap = FreeImage_Load(_srcImageType, _filename.c_str(), BMP_DEFAULT);
 
-	if (!loadedBitmap) {
-
-		cout << "FreeImage: Could not load image " << filename << endl;
+	if (!loadedBitmap) 
+	{
+		cout << "FreeImage: Could not load image " << _filename << endl;
 		return 0;
 	}
 
@@ -20,9 +20,9 @@ GLuint loadTexture(string filename, FREE_IMAGE_FORMAT srcImageType) {
 	FIBITMAP* bitmap32bpp = FreeImage_ConvertTo32Bits(loadedBitmap);
 	FreeImage_Unload(loadedBitmap);
 
-	if (!bitmap32bpp) {
-
-		cout << "FreeImage: Conversion to 32 bits unsuccessful for image " << filename << endl;
+	if (!bitmap32bpp) 
+	{
+		cout << "FreeImage: Conversion to 32 bits unsuccessful for image " << _filename << endl;
 		return 0;
 	}
 
@@ -32,8 +32,8 @@ GLuint loadTexture(string filename, FREE_IMAGE_FORMAT srcImageType) {
 	// If image loaded, setup new texture object in OpenGL
 	glGenTextures(1, &newTexture); // can create more than 1!
 
-	if (newTexture) {
-
+	if (newTexture) 
+	{
 		glBindTexture(GL_TEXTURE_2D, newTexture);
 
 		// Setup texture image properties

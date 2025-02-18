@@ -48,13 +48,13 @@ public:
 	enum class StringResult : uint8_t { S_OKAY, S_FILE_NOT_FOUND, S_BUFFER_ALLOC_ERROR };
 
 	// Split a path into it's component parts - separated by characters in delimiters, and return a vector of the component parts
-	static std::vector<std::string> splitPath(const std::string& path, const std::set<char>& delimiters);
+	static std::vector<std::string> splitPath(const std::string& _path, const std::set<char>& _delimiters);
 
-	static std::string loadStringFromFile(const std::string& filePath);
+	static std::string loadStringFromFile(const std::string& _filePath);
 };
 
 
 // Basic shader object creation function takes a path to a vertex shader file and fragment shader file and returns a bound and linked shader program object
-GLuint setupShaders(const std::string& vsPath,
-	const std::string& fsPath,
-	ShaderError* error_result = NULL);
+GLuint setupShaders(const std::string& _vsPath,
+	const std::string& _fsPath,
+	ShaderError* _error_result = NULL);

@@ -26,6 +26,8 @@ cCamera::~cCamera()
 /////////////////////////////////////////////////////////////////////////////////////
 void cCamera::Init(float _screenWidth, float _screenHeight, Scene* _scene)
 {
+	//TODO: move the calculation of the Projection Matrix to Camera::Tick
+	// so that we can do the same rescaling of the aspect ratio to match the current window
 	float aspect_ratio = _screenWidth / _screenHeight;
 	m_projectionMatrix = glm::perspective(glm::radians(m_fov), aspect_ratio, m_near, m_far);
 }

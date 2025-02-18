@@ -5,24 +5,24 @@ using namespace std;
 
 #pragma region StringUtility implementation
 
-vector<string> StringUtility::splitPath(const string& path, const std::set<char>& delimiters) {
+vector<string> StringUtility::splitPath(const string& _path, const std::set<char>& _delimiters) {
 
 	vector<string> result;
 
-	char const* charPtr = path.c_str();
+	char const* charPtr = _path.c_str();
 	char const* startChar = charPtr;
 
-	while (*charPtr) {
-
-		if (delimiters.find(*charPtr) != delimiters.end())
+	while (*charPtr) 
+	{
+		if (_delimiters.find(*charPtr) != _delimiters.end())
 		{
-			if (startChar != charPtr) {
-
+			if (startChar != charPtr) 
+			{
 				string pathComponent(startChar, charPtr);
 				result.push_back(pathComponent);
 			}
-			else {
-
+			else 
+			{
 				result.push_back("");
 			}
 
@@ -38,12 +38,12 @@ vector<string> StringUtility::splitPath(const string& path, const std::set<char>
 }
 
 
-string StringUtility::loadStringFromFile(const string& filePath) {
+string StringUtility::loadStringFromFile(const string& _filePath) {
 
-	ifstream shaderFile(filePath);
+	ifstream shaderFile(_filePath);
 
-	if (!shaderFile.is_open()) {
-
+	if (!shaderFile.is_open()) 
+	{
 		throw StringUtility::StringResult::S_FILE_NOT_FOUND;
 	}
 
@@ -56,8 +56,8 @@ string StringUtility::loadStringFromFile(const string& filePath) {
 
 	char* src = (char*)calloc(bufferSize + 1, 1); // Ensure buffer ends will null terminator character
 
-	if (!src) {
-
+	if (!src) 
+	{
 		shaderFile.close();
 		throw StringUtility::StringResult::S_BUFFER_ALLOC_ERROR;
 	}

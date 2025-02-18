@@ -111,10 +111,10 @@
     <ClInclude Include="ExampleGO.h">
       <Filter>Scene Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="DirectionLight.h">
-      <Filter>Example Source Files</Filter>
-    </ClInclude>
     <ClInclude Include="RenderPass.h">
+      <Filter>Scene Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="DirectionLight.h">
       <Filter>Scene Header Files</Filter>
     </ClInclude>
   </ItemGroup>
