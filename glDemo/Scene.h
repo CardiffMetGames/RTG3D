@@ -8,8 +8,8 @@
 using namespace std;
 
 class GameObject;
-class cCamera;
-class cLight;
+class Camera;
+class Light;
 class Model;
 class Texture;
 class Shader;
@@ -27,8 +27,8 @@ public:
 
 	//return a pointer to a given thing by its name
 	GameObject* GetGameObject(string _GOName);
-	cCamera* GetCamera(string _camName);
-	cLight* GetLight(string _lightName);
+	Camera* GetCamera(string _camName);
+	Light* GetLight(string _lightName);
 	Texture* GetTexture(string _texName);
 	Model* GetModel(string _modelName);
 	Shader* GetShader(string _shaderName);
@@ -52,9 +52,9 @@ protected:
 	int m_numModels;
 	int m_numTextures;
 	int m_numShaders;
-	std::list<cCamera*>    m_Cameras;
-	cCamera* m_useCamera = nullptr; //current main camera in use
-	std::list<cLight*>    m_Lights;
+	std::list<Camera*>    m_Cameras;
+	Camera* m_useCamera = nullptr; //current main camera in use
+	std::list<Light*>    m_Lights;
 	std::list<Model*>		m_Models;
 	std::list<Texture*>		m_Textures;
 	std::list<Shader*>		m_Shaders;

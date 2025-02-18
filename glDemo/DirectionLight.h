@@ -1,7 +1,7 @@
 #pragma once
-#include "cLight.h"
+#include "Light.h"
 class DirectionLight :
-	public cLight
+	public Light
 {
 public:
 	DirectionLight();

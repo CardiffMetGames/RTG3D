@@ -1,10 +1,10 @@
 #include "core.h"
-#include "cLight.h"
+#include "Light.h"
 
 #include "helper.h"
 #include "stringHelp.h"
 
-cLight::cLight()
+Light::Light()
 {
 	m_type = "LIGHT";
 	m_pos.x = 0.0f;
@@ -12,7 +12,7 @@ cLight::cLight()
 	m_pos.z = 0.0f;
 }
 
-void cLight::Load(ifstream& _file)
+void Light::Load(ifstream& _file)
 {
 	StringHelp::String(_file, "NAME", m_name);
 	StringHelp::Float3(_file, "POS", m_pos.x, m_pos.y, m_pos.z);
@@ -24,13 +24,13 @@ void cLight::Load(ifstream& _file)
 /////////////////////////////////////////////////////////////////////////////////////
 // Update() - 
 /////////////////////////////////////////////////////////////////////////////////////
-void cLight::Tick(float _dt)
+void Light::Tick(float _dt)
 {
 }
 
 //send values to the shaders to allow the use of this light
 // <m_name>Pos <m_name>Col <m_name>Amb
-void cLight::SetRenderValues(unsigned int _prog)
+void Light::SetRenderValues(unsigned int _prog)
 {
 	GLint loc;
 	string posString = m_name + "Pos";

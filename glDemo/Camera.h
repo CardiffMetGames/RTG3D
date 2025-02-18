@@ -13,16 +13,16 @@ using namespace std;
 using namespace glm;
 
 class cTransform;
-class cLight;
+class Light;
 class Scene;
 
 //base class for a camera
 
-class cCamera
+class Camera
 {
 public:
-	cCamera();
-	~cCamera();
+	Camera();
+	~Camera();
 
 	//initialise the camera _width _height
 	// game maybe needed for more involved cameras to connect to relvant GOs and lights/shaders etc

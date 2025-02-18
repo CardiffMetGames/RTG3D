@@ -1,14 +1,14 @@
 #include "LightFactory.h"
 #include <assert.h>
-#include "cLight.h"
+#include "Light.h"
 #include "DirectionLight.h"
 
-cLight* LightFactory::makeNewLight(std::string _type)
+Light* LightFactory::makeNewLight(std::string _type)
 {
 	printf("LIGHT TYPE: %s \n", _type.c_str());
 	if (_type == "LIGHT")
 	{
-		return new cLight();
+		return new Light();
 	}
 	else if (_type == "DIRECTION")
 	{

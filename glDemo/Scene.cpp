@@ -1,7 +1,7 @@
 #include "Scene.h"
 #include "GameObject.h"
 #include "CameraFactory.h"
-#include "cCamera.h"
+#include "Camera.h"
 #include "LightFactory.h"
 #include "cLight.h"
 #include "ModelFactory.h"
@@ -19,13 +19,13 @@ Scene::Scene()
 void Scene::Update(float _dt)
 {
 	//update all lights
-	for (list<cLight*>::iterator it = m_Lights.begin(); it != m_Lights.end(); it++)
+	for (list<Light*>::iterator it = m_Lights.begin(); it != m_Lights.end(); it++)
 	{
 		(*it)->Tick(_dt);
 	}
 
 	//update all cameras
-	for (list<cCamera*>::iterator it = m_Cameras.begin(); it != m_Cameras.end(); it++)
+	for (list<Camera*>::iterator it = m_Cameras.begin(); it != m_Cameras.end(); it++)
 	{
 		(*it)->Tick(_dt);
 	}
@@ -57,9 +57,9 @@ GameObject* Scene::GetGameObject(string _GOName)
 	return nullptr;
 }
 
-cCamera* Scene::GetCamera(string _camName)
+Camera* Scene::GetCamera(string _camName)
 {
-	for (list<cCamera*>::iterator it = m_Cameras.begin(); it != m_Cameras.end(); it++)
+	for (list<Camera*>::iterator it = m_Cameras.begin(); it != m_Cameras.end(); it++)
 	{
 		if ((*it)->GetName() == _camName)
 		{
@@ -71,9 +71,9 @@ cCamera* Scene::GetCamera(string _camName)
 	return nullptr;
 }
 
-cLight* Scene::GetLight(string _lightName)
+Light* Scene::GetLight(string _lightName)
 {
-	for (list<cLight*>::iterator it = m_Lights.begin(); it != m_Lights.end(); it++)
+	for (list<Light*>::iterator it = m_Lights.begin(); it != m_Lights.end(); it++)
 	{
 		if ((*it)->GetName() == _lightName)
 		{
@@ -135,7 +135,7 @@ void Scene::Render()
 	//check out the example stuff back in main.cpp to see what needs setting up
 	for (list<GameObject*>::iterator it = m_GameObjects.begin(); it != m_GameObjects.end(); it++)
 	{
-		if((*it)->GetRP()==RP_OPAQUE)
+		if ((*it)->GetRP() == RP_OPAQUE)
 		{
 
 			//set shader program using
@@ -155,14 +155,14 @@ void Scene::Render()
 			(*it)->Render();
 		}
 	}
-	
+
 	//TODO: now do the same for RP_TRANSPARENT here
 }
 
 void Scene::SetShaderUniforms(GLuint _shaderprog)
 {
 	//everything needs to know about all the lights
-	for (list<cLight*>::iterator it = m_Lights.begin(); it != m_Lights.end(); it++)
+	for (list<Light*>::iterator it = m_Lights.begin(); it != m_Lights.end(); it++)
 	{
 		(*it)->SetRenderValues(_shaderprog);
 	}
@@ -183,7 +183,7 @@ void Scene::Load(ifstream& _file)
 
 		string type;
 		_file >> dummy >> type; _file.ignore(256, '\n');
-		cCamera* newCam = CameraFactory::makeNewCam(type);
+		Camera* newCam = CameraFactory::makeNewCam(type);
 		newCam->Load(_file);
 
 		m_Cameras.push_back(newCam);
@@ -206,7 +206,7 @@ void Scene::Load(ifstream& _file)
 
 		string type;
 		_file >> dummy >> type; _file.ignore(256, '\n');
-		cLight* newLight = LightFactory::makeNewLight(type);
+		Light* newLight = LightFactory::makeNewLight(type);
 		newLight->Load(_file);
 
 		m_Lights.push_back(newLight);
@@ -305,7 +305,7 @@ void Scene::Init()
 {
 	//initialise all cameras
 	//scene is passed down here to allow for linking of cameras to game objects
-	for (list<cCamera*>::iterator it = m_Cameras.begin(); it != m_Cameras.end(); ++it)
+	for (list<Camera*>::iterator it = m_Cameras.begin(); it != m_Cameras.end(); ++it)
 	{
 		(*it)->Init(100, 100, this);// TODO set correct screen sizes here
 

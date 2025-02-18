@@ -12,11 +12,11 @@ using namespace glm;
 using namespace std;
 
 //base class for a light
-class cLight
+class Light
 {
 public:
-	cLight();
-	~cLight() {}
+	Light();
+	~Light() {}
 
 	void Init(float _x, float _y, float _z)
 	{

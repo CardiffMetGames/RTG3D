@@ -69,7 +69,7 @@
     <ClInclude Include="CameraFactory.h">
       <Filter>Scene Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="cCamera.h">
+    <ClInclude Include="Camera.h">
       <Filter>Scene Header Files</Filter>
     </ClInclude>
     <ClInclude Include="cLight.h">
@@ -149,7 +149,7 @@
     <ClCompile Include="CameraFactory.cpp">
       <Filter>Scene Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="cCamera.cpp">
+    <ClCompile Include="Camera.cpp">
       <Filter>Scene Source Files</Filter>
     </ClCompile>
     <ClCompile Include="cLight.cpp">

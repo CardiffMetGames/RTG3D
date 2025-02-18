@@ -1,4 +1,4 @@
-#include "cCamera.h"
+#include "Camera.h"
 #include "helper.h"
 #include <fstream>
 #include <iostream>
@@ -9,7 +9,7 @@ using namespace std;
 /////////////////////////////////////////////////////////////////////////////////////
 // constructor
 /////////////////////////////////////////////////////////////////////////////////////
-cCamera::cCamera()
+Camera::Camera()
 {
 	m_type = "CAMERA";
 }
@@ -17,14 +17,14 @@ cCamera::cCamera()
 /////////////////////////////////////////////////////////////////////////////////////
 // destructor
 /////////////////////////////////////////////////////////////////////////////////////
-cCamera::~cCamera()
+Camera::~Camera()
 {
 }
 
 /////////////////////////////////////////////////////////////////////////////////////
 // Init() - 
 /////////////////////////////////////////////////////////////////////////////////////
-void cCamera::Init(float _screenWidth, float _screenHeight, Scene* _scene)
+void Camera::Init(float _screenWidth, float _screenHeight, Scene* _scene)
 {
 	//TODO: move the calculation of the Projection Matrix to Camera::Tick
 	// so that we can do the same rescaling of the aspect ratio to match the current window
@@ -35,12 +35,12 @@ void cCamera::Init(float _screenWidth, float _screenHeight, Scene* _scene)
 /////////////////////////////////////////////////////////////////////////////////////
 // Update() - 
 /////////////////////////////////////////////////////////////////////////////////////
-void cCamera::Tick(float _dt)
+void Camera::Tick(float _dt)
 {
 	m_viewMatrix = glm::lookAt(m_pos, m_lookAt, vec3(0, 1, 0));
 }
 
-void cCamera::Load(ifstream& _file)
+void Camera::Load(ifstream& _file)
 {
 	StringHelp::String(_file, "NAME", m_name);
 	StringHelp::Float3(_file, "POS", m_pos.x, m_pos.y, m_pos.z);
@@ -51,7 +51,7 @@ void cCamera::Load(ifstream& _file)
 }
 
 //set the base render values for this camera in the shaders
-void cCamera::SetRenderValues(unsigned int _prog)
+void Camera::SetRenderValues(unsigned int _prog)
 {
 	GLint loc;
 
