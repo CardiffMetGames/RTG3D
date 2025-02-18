@@ -16,13 +16,13 @@ DirectionLight::~DirectionLight()
 
 void DirectionLight::Load(ifstream& _file)
 {
-	cLight::Load(_file);
+	Light::Load(_file);
 	StringHelp::Float3(_file, "DIRECTION", m_direction.x, m_direction.y, m_direction.z);
 }
 
 void DirectionLight::SetRenderValues(unsigned int _prog)
 {
-	cLight::SetRenderValues(_prog);
+	Light::SetRenderValues(_prog);
 
 	GLint loc;
 	string dirString = m_name + "Dir";

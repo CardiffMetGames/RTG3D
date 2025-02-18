@@ -1,12 +1,12 @@
 #pragma once
 #include <string>
-class cLight;
+class Light;
 
 //ditto for the other factory but now for lights!
 class LightFactory
 {
 public:
 
-	static cLight* makeNewLight(std::string _type);
+	static Light* makeNewLight(std::string _type);
 };
 

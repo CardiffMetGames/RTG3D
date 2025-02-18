@@ -3,7 +3,7 @@
 #include "CameraFactory.h"
 #include "Camera.h"
 #include "LightFactory.h"
-#include "cLight.h"
+#include "Light.h"
 #include "ModelFactory.h"
 #include "model.h"
 #include "Texture.h"
