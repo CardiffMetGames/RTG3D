@@ -22,10 +22,11 @@ void DirectionLight::Load(ifstream& _file)
 
 void DirectionLight::SetRenderValues(unsigned int _prog)
 {
+	//still need to tell the shader about the basic light data
 	Light::SetRenderValues(_prog);
 
 	GLint loc;
-	string dirString = m_name + "Dir";
+	string dirString = m_name + "Dir";//only thing I add is a direction
 
 	if (Helper::SetUniformLocation(_prog, dirString.c_str(), &loc))
 		glUniform3fv(loc, 1, glm::value_ptr(m_direction));

@@ -31,10 +31,16 @@ void ExampleGO::PreRender()
 {
 	GameObject::PreRender();
 
+	//only thing I need to do is tell the shader about my texture
+
 	glEnable(GL_TEXTURE_2D);
 
 	glActiveTexture(GL_TEXTURE0);
 	glBindTexture(GL_TEXTURE_2D, m_texture);
+
+	//this does sort of replicate stuff in the AIMesh class
+
+	//TODO: NORMAL MAPS!
 }
 
 void ExampleGO::Render()

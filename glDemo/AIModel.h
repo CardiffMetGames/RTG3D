@@ -2,17 +2,19 @@
 #include "Model.h"
 class AIMesh;
 
+//Uses ASSIMP to load/render in an obj model
+
 class AIModel :
-    public Model
+	public Model
 {
 public:
-    AIModel();
-    ~AIModel();
+	AIModel();
+	virtual ~AIModel();
 
-    void Load(ifstream& _file);
-    virtual void Render();
+	void Load(ifstream& _file);
+	virtual void Render();
 
 protected:
-    AIMesh* m_AImesh;
+	AIMesh* m_AImesh;
 };
 

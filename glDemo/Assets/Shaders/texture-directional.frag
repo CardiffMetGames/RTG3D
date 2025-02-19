@@ -1,9 +1,9 @@
-#version 410
+#version 450 core
 
 // Diffuse texture - directional light
 
 // Texture sampler (for diffuse surface colour)
-uniform sampler2D texture;
+layout(binding = 0) uniform sampler2D texture;
 
 // Directional light model
 uniform vec3 DIRDir;

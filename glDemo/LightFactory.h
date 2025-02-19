@@ -2,7 +2,7 @@
 #include <string>
 class Light;
 
-//ditto for the other factory but now for lights!
+//ditto for the other factories but now for lights!
 class LightFactory
 {
 public:

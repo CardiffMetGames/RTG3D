@@ -5,10 +5,12 @@
 AIModel::AIModel()
 {
 	m_type = "AI";
+	m_AImesh = nullptr;
 }
 
 AIModel::~AIModel()
 {
+	delete m_AImesh;
 }
 
 void AIModel::Load(ifstream& _file)

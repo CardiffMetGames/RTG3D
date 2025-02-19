@@ -45,8 +45,10 @@ void GameObject::PreRender()
 
 void GameObject::Render()
 {
+	//I have nothing to draw
 }
 
 void GameObject::Init(Scene* _scene)
 {
+	//I have nothing to link up to
 }

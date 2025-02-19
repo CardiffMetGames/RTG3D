@@ -1,4 +1,4 @@
-#version 410
+#version 450 core
 
 uniform mat4 modelMatrix;
 uniform mat4 viewMatrix;

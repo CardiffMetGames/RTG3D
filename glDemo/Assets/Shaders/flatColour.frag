@@ -1,4 +1,4 @@
-#version 410
+#version 450 core
 
 // flat colour from vertex colours
 

@@ -18,14 +18,7 @@ public:
 	Light();
 	~Light() {}
 
-	void Init(float _x, float _y, float _z)
-	{
-		m_pos.x = _x;
-		m_pos.y = _y;
-		m_pos.z = _z;
-	}
-
-	//load from SDF
+	//load from mainfest
 	virtual void Load(ifstream& _file);
 
 	//tick this light
@@ -42,7 +35,7 @@ public:
 	vec3 GetPos() { return m_pos; }
 
 	//set my shader values
-	//base version if name of light is LG
+	//base version: if name of light is LG
 	//sets up shader values for LGpos LGcol & LGamb
 	//position, main colour and ambient colour for this light
 	virtual void SetRenderValues(unsigned int _prog);

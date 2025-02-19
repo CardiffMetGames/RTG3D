@@ -4,13 +4,15 @@
 
 using namespace std;
 
+//simple data structure that loads and compiles a shader
+//from its description in the manifest and then links its GLuint handle to its name
 class Shader
 {
 public:
 	Shader(ifstream& _file);
 	~Shader();
 
-	GLuint GetProg(){ return m_shaderProg; }
+	GLuint GetProg() { return m_shaderProg; }
 	string GetName() { return m_name; }
 
 protected:

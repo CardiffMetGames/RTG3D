@@ -22,17 +22,17 @@ class Camera
 {
 public:
 	Camera();
-	~Camera();
+	virtual ~Camera();
 
 	//initialise the camera _width _height
-	// game maybe needed for more involved cameras to connect to relvant GOs and lights/shaders etc
+	//scene maybe needed for more involved cameras to connect to relvant GOs and lights/shaders etc
+	//TODO move _w and _h to tick for cameras so apsect ratio can be updated if we change the size of the window
 	virtual void Init(float _w, float _h, Scene* _scene);
 
 	//tick this camera
 	virtual void Tick(float _dt);
 
-	//load camera info from the SDF
-	//only load the data for the primitive if loadPrimName = true
+	//load camera info from the mainfest
 	virtual void Load(ifstream& _file);
 
 	//getters
@@ -52,19 +52,12 @@ public:
 
 	void Move(glm::vec3 _d) { m_pos += _d; }
 
-	//if this camera is drawing to a render target these will be needed by the main render loop
-	GLuint GetFBN() { return m_framebufferName; }
-	GLuint GetRT() { return m_renderedTexture; }
-
 	//where am I looking at
 	vec3 GetLookAt() { return m_lookAt; }
 	void SetLookAt(vec3 _pos) { m_lookAt = _pos; }
 
-	//set up shader values for when using this camera in its own render pass
+	//set up shader values for when using this camera
 	virtual void SetRenderValues(unsigned int _prog);
-
-	//set up shader values in everyone elses render pass
-	virtual void SetGlobalRenderValues(unsigned int _prog) {};
 
 protected:
 
@@ -84,16 +77,5 @@ protected:
 
 	string m_name;
 	string m_type;
-
-	//Frame Buffer stuff for multiple render targets
-	GLuint m_framebufferName = 0;
-	GLuint m_renderedTexture;
-	GLuint m_depthrenderbuffer;
-
-	//if I have a custom shader
-	//these will be needed
-	bool m_hasCustomShader = false;
-	unsigned int m_shaderProg = 0;
-	bool m_shaderHasTess = false;
 };
 

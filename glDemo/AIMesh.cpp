@@ -17,6 +17,7 @@ AIMesh::AIMesh(std::string _filename, GLuint _meshIndex)
 
 	if (!scene)
 	{
+		cout << "AIMesh failed to load : " << _filename << endl;
 		return;
 	}
 

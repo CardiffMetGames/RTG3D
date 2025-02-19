@@ -175,4 +175,5 @@ Texture::Texture(ifstream& _file)
 
 Texture::~Texture()
 {
+	//TODO: What should I really be doing here?
 }

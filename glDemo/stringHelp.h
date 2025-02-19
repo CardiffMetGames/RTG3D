@@ -5,6 +5,8 @@
 
 using namespace std;
 
+//a bunch of helper functions to load in sets of values from the manifest
+//and output the values that have been read in to the console
 class StringHelp {
 public:
 
@@ -12,14 +14,14 @@ public:
 	{
 		string dummy;
 		_file >> dummy >> _out; _file.ignore(255, '\n');
-		cout << _message <<" : " << _out << endl;
+		cout << _message << " : " << _out << endl;
 	}
 
-	static void Float3(ifstream& _file, string _message, float& _out1,float& _out2, float& _out3)
+	static void Float3(ifstream& _file, string _message, float& _out1, float& _out2, float& _out3)
 	{
 		string dummy;
 		_file >> dummy >> _out1 >> _out2 >> _out3; _file.ignore(255, '\n');
-		cout << _message << " : " << _out1 <<" "<< _out2 <<" " << _out3 << endl;
+		cout << _message << " : " << _out1 << " " << _out2 << " " << _out3 << endl;
 	}
 
 	static void Float(ifstream& _file, string _message, float& _out)

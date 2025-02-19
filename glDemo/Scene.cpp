@@ -15,7 +15,13 @@ Scene::Scene()
 {
 }
 
-//tick all my Game Objects
+Scene::~Scene()
+{
+	//TODO: We are being really naught and not deleting everything as we finish
+	//what shoudl really go here and in similar places throughout the code base?
+}
+
+//tick all my Game Objects, lights and cameras
 void Scene::Update(float _dt)
 {
 	//update all lights
@@ -132,12 +138,11 @@ Shader* Scene::GetShader(string _shaderName)
 void Scene::Render()
 {
 	//TODO: Set up for the Opaque Render Pass will go here
-	//check out the example stuff back in main.cpp to see what needs setting up
+	//check out the example stuff back in main.cpp to see what needs setting up here
 	for (list<GameObject*>::iterator it = m_GameObjects.begin(); it != m_GameObjects.end(); it++)
 	{
-		if ((*it)->GetRP() == RP_OPAQUE)
+		if ((*it)->GetRP() & RP_OPAQUE)// TODO: note the bit-wise operation. Why?
 		{
-
 			//set shader program using
 			GLuint SP = (*it)->GetShaderProg();
 			glUseProgram(SP);
@@ -166,6 +171,7 @@ void Scene::SetShaderUniforms(GLuint _shaderprog)
 	{
 		(*it)->SetRenderValues(_shaderprog);
 	}
+
 }
 
 void Scene::Load(ifstream& _file)
