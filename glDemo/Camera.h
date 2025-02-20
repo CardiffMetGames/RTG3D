@@ -30,6 +30,7 @@ public:
 	virtual void Init(float _w, float _h, Scene* _scene);
 
 	//tick this camera
+	//TODO: possibly pass keyboard / mouse stuff down here for player controls?
 	virtual void Tick(float _dt);
 
 	//load camera info from the mainfest

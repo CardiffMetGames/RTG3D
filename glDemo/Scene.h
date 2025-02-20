@@ -64,6 +64,7 @@ protected:
 	std::list<GameObject*> m_GameObjects;
 
 	Camera* m_useCamera = nullptr; //current main camera in use
+	int m_useCameraIndex = 0;
 	//TODO: pass down the same keyboard input from main so that we skip through all the cameras
 };
 

@@ -311,22 +311,26 @@ void Scene::Init()
 {
 	//initialise all cameras
 	//scene is passed down here to allow for linking of cameras to game objects
+	int count = 0;
 	for (list<Camera*>::iterator it = m_Cameras.begin(); it != m_Cameras.end(); ++it)
 	{
-		(*it)->Init(100, 100, this);// TODO set correct screen sizes here
+		(*it)->Init(100, 100, this);// TODO: set correct screen sizes here
 
 		//if a camera is called MAIN
 		//this will be the starting camera used
 		if ((*it)->GetName() == "MAIN")
 		{
 			m_useCamera = (*it);
+			m_useCameraIndex = count;
 		}
+		count++;
 	}
 
 	//if no MAIN camera just use the first one
 	if (!m_useCamera)
 	{
 		m_useCamera = (*m_Cameras.begin());
+		m_useCameraIndex = 0;
 	}
 
 	//set up links between everything and GameObjects
